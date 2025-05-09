@@ -7,7 +7,17 @@ export const env = createEnv({
 	 * isn't built with invalid env vars.
 	 */
 	server: {
-		DATABASE_URL: z.string().url(),
+		POSTGRES_HOST: z.string(),
+		POSTGRES_URL: z.string(),
+		POSTGRES_PRISMA_URL: z.string(),
+		POSTGRES_URL_NON_POOLING: z.string(),
+		POSTGRES_USER: z.string(),
+		POSTGRES_PASSWORD: z.string(),
+		POSTGRES_DATABASE: z.string(),
+		SUPABASE_URL: z.string().url(),
+		SUPABASE_JWT_SECRET: z.string(),
+		SUPABASE_SERVICE_ROLE_KEY: z.string(),
+
 		NODE_ENV: z
 			.enum(["development", "test", "production"])
 			.default("development"),
@@ -19,7 +29,8 @@ export const env = createEnv({
 	 * `NEXT_PUBLIC_`.
 	 */
 	client: {
-		// NEXT_PUBLIC_CLIENTVAR: z.string(),
+		NEXT_PUBLIC_SUPABASE_URL: z.string().url(),
+		NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string(),
 	},
 
 	/**
@@ -27,9 +38,20 @@ export const env = createEnv({
 	 * middlewares) or client-side so we need to destruct manually.
 	 */
 	runtimeEnv: {
-		DATABASE_URL: process.env.DATABASE_URL,
+		POSTGRES_HOST: process.env.POSTGRES_HOST,
+		POSTGRES_URL: process.env.POSTGRES_URL,
+		POSTGRES_PRISMA_URL: process.env.POSTGRES_PRISMA_URL,
+		POSTGRES_URL_NON_POOLING: process.env.POSTGRES_URL_NON_POOLING,
+		POSTGRES_USER: process.env.POSTGRES_USER,
+		POSTGRES_PASSWORD: process.env.POSTGRES_PASSWORD,
+		POSTGRES_DATABASE: process.env.POSTGRES_DATABASE,
+		SUPABASE_URL: process.env.SUPABASE_URL,
+		SUPABASE_JWT_SECRET: process.env.SUPABASE_JWT_SECRET,
+		SUPABASE_SERVICE_ROLE_KEY: process.env.SUPABASE_SERVICE_ROLE_KEY,
+		NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
+		NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+
 		NODE_ENV: process.env.NODE_ENV,
-		// NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
 	},
 	/**
 	 * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially
