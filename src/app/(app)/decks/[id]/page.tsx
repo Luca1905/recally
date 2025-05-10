@@ -85,7 +85,12 @@ const deck = {
 	],
 };
 
-export default function DeckDetailPage({ params }: { params: { id: string } }) {
+export default async function DeckDetailPage({
+	params,
+}: {
+	params: Promise<{ slug: string }>;
+}) {
+	const { slug } = await params;
 	const [showAddCardModal, setShowAddCardModal] = useState(false);
 	const [selectedCard, setSelectedCard] = useState<number | null>(null);
 	const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
@@ -226,7 +231,7 @@ export default function DeckDetailPage({ params }: { params: { id: string } }) {
 				transition={{ duration: 0.5, delay: 0.5 }}
 			>
 				<Button asChild className="group" variant="ghost">
-					<Link href={`/study/${params.id}`}>
+					<Link href={`/study/${slug}`}>
 						Study Now
 						<svg
 							aria-hidden="true"
