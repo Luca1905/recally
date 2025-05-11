@@ -1,71 +1,18 @@
 "use client";
 
+import { useLiveQuery } from "dexie-react-hooks";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { useState } from "react";
 import { Button } from "~/components/ui/button";
-
-// Sample deck data
-const decks = [
-	{
-		id: 1,
-		name: "Spanish Vocabulary",
-		cardCount: 120,
-		dueCount: 12,
-		lastStudied: "2 hours ago",
-		color: "from-[#FF6B6B] to-[#FF9E9E]",
-		progress: 68,
-	},
-	{
-		id: 2,
-		name: "JavaScript Fundamentals",
-		cardCount: 85,
-		dueCount: 8,
-		lastStudied: "Yesterday",
-		color: "from-[#4ECDC4] to-[#7CFFD4]",
-		progress: 42,
-	},
-	{
-		id: 3,
-		name: "World Capitals",
-		cardCount: 195,
-		dueCount: 15,
-		lastStudied: "3 days ago",
-		color: "from-[#FFD166] to-[#FFEC99]",
-		progress: 75,
-	},
-	{
-		id: 4,
-		name: "Biology Terms",
-		cardCount: 64,
-		dueCount: 5,
-		lastStudied: "1 week ago",
-		color: "from-[#6B66FF] to-[#9E9EFF]",
-		progress: 30,
-	},
-	{
-		id: 5,
-		name: "Historical Dates",
-		cardCount: 42,
-		dueCount: 0,
-		lastStudied: "2 weeks ago",
-		color: "from-[#FF66B6] to-[#FF9ECC]",
-		progress: 90,
-	},
-	{
-		id: 6,
-		name: "Physics Formulas",
-		cardCount: 37,
-		dueCount: 3,
-		lastStudied: "Today",
-		color: "from-[#66B6FF] to-[#9ECCFF]",
-		progress: 55,
-	},
-];
+import { type Deck, db, resetDatabase } from "~/server/localdb/dexie";
 
 export default function DecksPage() {
+	const decks = useLiveQuery(() => db.decks.toArray());
 	const [showNewDeckModal, setShowNewDeckModal] = useState(false);
-	const [hoveredDeck, setHoveredDeck] = useState<number | null>(null);
+	const [hoveredDeck, setHoveredDeck] = useState<string | undefined>(undefined);
+
+	if (!decks) return null;
 
 	return (
 		<div className="container mx-auto p-6">
@@ -126,11 +73,14 @@ export default function DecksPage() {
 						</svg>
 						New Deck
 					</Button>
+					<Button className="group" onClick={async () => await resetDatabase()}>
+						Reset Decks
+					</Button>
 				</div>
 			</motion.div>
 
 			<div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-				{decks.map((deck, index) => (
+				{decks.map((deck: Deck, index: number) => (
 					<motion.div
 						key={deck.id}
 						className="group relative overflow-hidden rounded-2xl bg-white p-1 shadow-lg transition-all hover:shadow-xl"
@@ -139,7 +89,7 @@ export default function DecksPage() {
 						transition={{ duration: 0.5, delay: 0.1 * index }}
 						whileHover={{ y: -5 }}
 						onHoverStart={() => setHoveredDeck(deck.id)}
-						onHoverEnd={() => setHoveredDeck(null)}
+						onHoverEnd={() => setHoveredDeck(undefined)}
 					>
 						<div
 							className={`absolute top-0 left-0 h-24 w-full bg-gradient-to-r ${deck.color} opacity-90`}
@@ -198,12 +148,6 @@ export default function DecksPage() {
 									</svg>
 									{deck.cardCount} cards
 								</div>
-
-								{deck.dueCount > 0 && (
-									<div className="flex items-center gap-1 rounded-lg bg-warning/10 px-2 py-1 font-medium text-warning text-xs">
-										{deck.dueCount} due
-									</div>
-								)}
 							</motion.div>
 
 							<motion.div
