@@ -9,10 +9,10 @@ export interface Card {
 	imageUrl?: string;
 	audioUrl?: string;
 	box: number;
-	lastReviewedAt?: number;
-	nextReviewedAt?: number;
-	createdAt: number;
-	updatedAt: number;
+	lastReviewedAt?: string;
+	nextReviewedAt?: string;
+	createdAt: string;
+	updatedAt: string;
 	difficulty: string;
 }
 
@@ -22,9 +22,9 @@ export interface Deck {
 	description?: string;
 	color: string;
 	cardCount: number;
-	createdAt: number;
-	updatedAt: number;
-	lastStudied?: number;
+	createdAt: string;
+	updatedAt: string;
+	lastStudied?: string;
 	progress: number;
 }
 
