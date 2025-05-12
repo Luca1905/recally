@@ -43,3 +43,4 @@
 - [ ] Review streaks and insights dashboard
 - [ ] Dark mode support
 
+![Hackatime Badge](https://hackatime-badge.hackclub.com/U08RN7971T6/recally?color=darkgreen)
