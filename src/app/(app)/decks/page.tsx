@@ -25,9 +25,9 @@ import { type Deck, db, resetDatabase } from "~/server/localdb/dexie";
 export default function DecksPage() {
 	const decks = useLiveQuery(() => db.deck_table.toArray());
 	const [hoveredDeck, setHoveredDeck] = useState<number | undefined>(undefined);
-  const [background, setBackground] = useState(
-    'linear-gradient(to top left,#ff75c3,#ffa647,#ffe83f,#9fff5b,#70e2ff,#cd93ff)'
-  )
+	const [background, setBackground] = useState(
+		"linear-gradient(to top left,#ff75c3,#ffa647,#ffe83f,#9fff5b,#70e2ff,#cd93ff)",
+	);
 	if (!decks) return null;
 
 	return (
@@ -112,11 +112,11 @@ export default function DecksPage() {
 									rows={3}
 								/>
 							</div>
-              <GradientPicker
-                background={background}
-                setBackground={setBackground}
-                className="w-full truncate"
-              />
+							<GradientPicker
+								background={background}
+								setBackground={setBackground}
+								className="w-full truncate"
+							/>
 							<DialogFooter className="sm:justify-start">
 								<DialogClose asChild>
 									<Button type="button" variant="destructive">
@@ -124,7 +124,11 @@ export default function DecksPage() {
 									</Button>
 								</DialogClose>
 								<DialogClose asChild>
-									<Button type="submit" variant="default" style={{ background }}>
+									<Button
+										type="submit"
+										variant="default"
+										style={{ background }}
+									>
 										Create Deck
 									</Button>
 								</DialogClose>

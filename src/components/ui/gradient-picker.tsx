@@ -115,6 +115,7 @@ export function GradientPicker({
 								style={{ background: s }}
 								className="h-6 w-6 cursor-pointer rounded-md active:scale-105"
 								onClick={() => setBackground(s)}
+								onKeyDown={() => setBackground(s)}
 							/>
 						))}
 					</TabsContent>
@@ -127,6 +128,7 @@ export function GradientPicker({
 									style={{ background: s }}
 									className="h-6 w-6 cursor-pointer rounded-md active:scale-105"
 									onClick={() => setBackground(s)}
+									onKeyDown={() => setBackground(s)}
 								/>
 							))}
 						</div>
@@ -144,22 +146,3 @@ export function GradientPicker({
 		</Popover>
 	);
 }
-
-const GradientButton = ({
-	background,
-	children,
-}: {
-	background: string;
-	children: React.ReactNode;
-}) => {
-	return (
-		<div
-			className="!bg-cover !bg-center relative rounded-md p-0.5 transition-all"
-			style={{ background }}
-		>
-			<div className="rounded-md bg-popover/80 p-1 text-center text-xs">
-				{children}
-			</div>
-		</div>
-	);
-};
