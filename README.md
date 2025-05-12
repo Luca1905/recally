@@ -38,6 +38,7 @@
 ## M3: Backend + Sync Engine 
 - [ ] PostgreSQL and Drizzle models created
 - [ ] Sync API routes implemented
+- [ ] Setup Redis KV
 - [ ] Dexie sync replication connected to API
 - [ ] Server-side conflict resolution tested
 
