@@ -2,7 +2,7 @@ import Dexie, { type Table } from "dexie";
 import { seed } from "./seed";
 
 export interface Card {
-	id?: string;
+	id?: number;
 	deckId: string;
 	front: string;
 	back: string;
@@ -17,7 +17,7 @@ export interface Card {
 }
 
 export interface Deck {
-	id?: string;
+	id?: number;
 	name: string;
 	description?: string;
 	color: string;

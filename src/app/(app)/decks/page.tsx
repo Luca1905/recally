@@ -10,7 +10,7 @@ import { type Deck, db, resetDatabase } from "~/server/localdb/dexie";
 export default function DecksPage() {
 	const decks = useLiveQuery(() => db.decks.toArray());
 	const [showNewDeckModal, setShowNewDeckModal] = useState(false);
-	const [hoveredDeck, setHoveredDeck] = useState<string | undefined>(undefined);
+	const [hoveredDeck, setHoveredDeck] = useState<number | undefined>(undefined);
 
 	if (!decks) return null;
 

@@ -7,26 +7,17 @@ import { useState } from "react";
 import { Button } from "~/components/ui/button";
 import { db } from "~/server/localdb/dexie";
 
-export default function DeckDetail({ deckId }: { deckId: string }) {
+export default function DeckDetail({ deckId }: { deckId: number }) {
 	const [showAddCardModal, setShowAddCardModal] = useState(false);
-	const [selectedCard, setSelectedCard] = useState<string | undefined>(
+	const [selectedCard, setSelectedCard] = useState<number | undefined>(
 		undefined,
 	);
 	const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
-	const deck = useLiveQuery(
-		() => db.decks.where({ id: deckId }).first(),
-		[deckId],
-	);
-	const cards = useLiveQuery(
-		() => db.cards.where({ deckId }).toArray(),
-		[deckId],
-	);
+	const deck = useLiveQuery(() => db.decks.where({ id: deckId }).first());
+	const cards = useLiveQuery(() => db.cards.where({ deckId }).toArray());
 
-  console.log(deck);
-  console.log(cards);
-
-	if (deck === undefined || cards === undefined) {
+	if (!deck || !cards) {
 		return <div>Loading...</div>;
 	}
 

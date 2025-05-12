@@ -2,19 +2,18 @@ import { z } from "zod";
 import DeckDetail from "./deckDetail";
 
 export default async function DeckDetailPage(props: {
-	params: Promise<{ deckId: string }>;
+	params: Promise<{ id: string }>;
 }) {
 	const params = await props.params;
 
 	const { data, success } = z
 		.object({
-			deckId: z.coerce.string(),
+			id: z.coerce.number(),
 		})
 		.safeParse(params);
 
 	if (!success) return <div>Invalid deck ID</div>;
-
-	const parsedDeckId = data.deckId;
+	const parsedDeckId = data.id;
 
 	return <DeckDetail deckId={parsedDeckId} />;
 }
