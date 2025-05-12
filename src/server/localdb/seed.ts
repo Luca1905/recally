@@ -1,7 +1,7 @@
 import { db } from "./dexie";
 
 export async function seed() {
-	const deckId = await db.decks.add({
+	const deckId = await db.deck_table.add({
 		name: "Heredity",
 		color: "from-[#FF6B6B] to-[#FF9E9E]",
 		createdAt: Date.now(),
@@ -9,7 +9,7 @@ export async function seed() {
 		cardCount: 3,
 		progress: 0,
 	});
-	await db.cards.bulkAdd([
+	await db.card_table.bulkAdd([
 		{
 			deckId,
 			front: "DNA",

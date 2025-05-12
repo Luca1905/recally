@@ -29,20 +29,20 @@ export interface Deck {
 }
 
 export class RecallyDB extends Dexie {
-	decks!: Table<Deck, string>;
-	cards!: Table<Card, string>;
+	deck_table!: Table<Deck, string>;
+	card_table!: Table<Card, string>;
 	constructor() {
 		super("RecallyDB");
 		this.version(1).stores({
-			decks: "++id",
-			cards: "++id, deckId",
+			deck_table: "++id",
+			card_table: "++id, deckId",
 		});
 	}
 
 	deleteDeck(deckId: string) {
-		return this.transaction("rw", this.cards, this.decks, () => {
-			this.cards.where({ deckId }).delete();
-			this.decks.delete(deckId);
+		return this.transaction("rw", this.card_table, this.deck_table, () => {
+			this.card_table.where({ deckId }).delete();
+			this.deck_table.delete(deckId);
 		});
 	}
 }
@@ -52,7 +52,7 @@ export const db = new RecallyDB();
 db.on("populate", seed);
 
 export function resetDatabase() {
-	return db.transaction("rw", db.decks, db.cards, async () => {
+	return db.transaction("rw", db.deck_table, db.card_table, async () => {
 		await Promise.all(db.tables.map((table) => table.clear()));
 		await seed();
 	});

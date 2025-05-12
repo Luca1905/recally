@@ -14,8 +14,8 @@ export default function DeckDetail({ deckId }: { deckId: number }) {
 	);
 	const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
-	const deck = useLiveQuery(() => db.decks.where({ id: deckId }).first());
-	const cards = useLiveQuery(() => db.cards.where({ deckId }).toArray());
+	const deck = useLiveQuery(() => db.deck_table.where({ id: deckId }).first());
+	const cards = useLiveQuery(() => db.card_table.where({ deckId }).toArray());
 
 	if (!deck || !cards) {
 		return <div>Loading...</div>;

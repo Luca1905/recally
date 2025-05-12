@@ -8,7 +8,7 @@ import { Button } from "~/components/ui/button";
 import { type Deck, db, resetDatabase } from "~/server/localdb/dexie";
 
 export default function DecksPage() {
-	const decks = useLiveQuery(() => db.decks.toArray());
+	const decks = useLiveQuery(() => db.deck_table.toArray());
 	const [showNewDeckModal, setShowNewDeckModal] = useState(false);
 	const [hoveredDeck, setHoveredDeck] = useState<number | undefined>(undefined);
 
