@@ -17,6 +17,7 @@ export async function seed() {
 			box: 1,
 			createdAt: Date.now(),
 			updatedAt: Date.now(),
+			difficulty: "Easy",
 		},
 		{
 			deckId,
@@ -25,6 +26,7 @@ export async function seed() {
 			box: 1,
 			createdAt: Date.now(),
 			updatedAt: Date.now(),
+			difficulty: "Easy",
 		},
 		{
 			deckId,
@@ -33,6 +35,7 @@ export async function seed() {
 			box: 1,
 			createdAt: Date.now(),
 			updatedAt: Date.now(),
+			difficulty: "Easy",
 		},
 	]);
 }

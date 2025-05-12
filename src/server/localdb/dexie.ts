@@ -13,6 +13,7 @@ export interface Card {
 	nextReviewedAt?: number;
 	createdAt: number;
 	updatedAt: number;
+	difficulty: string;
 }
 
 export interface Deck {
@@ -34,7 +35,7 @@ export class RecallyDB extends Dexie {
 		super("RecallyDB");
 		this.version(1).stores({
 			decks: "++id",
-			cards: "++id, todoListId",
+			cards: "++id, deckId",
 		});
 	}
 
