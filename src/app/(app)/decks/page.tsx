@@ -1,17 +1,33 @@
 "use client";
 
 import { useLiveQuery } from "dexie-react-hooks";
-import { AnimatePresence, motion } from "motion/react";
+import { Plus } from "lucide-react";
+import { motion } from "motion/react";
 import Link from "next/link";
 import { useState } from "react";
 import { Button } from "~/components/ui/button";
+import {
+	Dialog,
+	DialogClose,
+	DialogContent,
+	DialogDescription,
+	DialogFooter,
+	DialogHeader,
+	DialogTitle,
+	DialogTrigger,
+} from "~/components/ui/dialog";
+import { GradientPicker } from "~/components/ui/gradient-picker";
+import { Input } from "~/components/ui/input";
+import { Label } from "~/components/ui/label";
+import { Textarea } from "~/components/ui/textarea";
 import { type Deck, db, resetDatabase } from "~/server/localdb/dexie";
 
 export default function DecksPage() {
 	const decks = useLiveQuery(() => db.deck_table.toArray());
-	const [showNewDeckModal, setShowNewDeckModal] = useState(false);
 	const [hoveredDeck, setHoveredDeck] = useState<number | undefined>(undefined);
-
+  const [background, setBackground] = useState(
+    'linear-gradient(to top left,#ff75c3,#ffa647,#ffe83f,#9fff5b,#70e2ff,#cd93ff)'
+  )
 	if (!decks) return null;
 
 	return (
@@ -53,26 +69,68 @@ export default function DecksPage() {
 							className="rounded-xl border-foreground/10 bg-white pr-4 pl-10 text-sm focus:border-primary focus:ring-primary"
 						/>
 					</div>
+					<Dialog>
+						<DialogTrigger asChild>
+							<Button className="group">
+								<Plus />
+								New Deck
+							</Button>
+						</DialogTrigger>
+						<DialogContent>
+							<DialogHeader>
+								<DialogTitle>Create New Deck</DialogTitle>
+								<DialogDescription>
+									Add a new flashcard deck to your collection
+								</DialogDescription>
+							</DialogHeader>
+							<div className="mb-4">
+								<Label
+									htmlFor="deck-name"
+									className="mb-2 block font-medium text-sm"
+								>
+									Deck Name
+								</Label>
+								<Input
+									id="deck-name"
+									type="text"
+									className="w-full rounded-lg border-foreground/10 bg-white focus:border-primary focus:ring-primary"
+									placeholder="e.g., French Vocabulary"
+								/>
+							</div>
 
-					<Button className="group" onClick={() => setShowNewDeckModal(true)}>
-						<svg
-							aria-hidden="true"
-							xmlns="http://www.w3.org/2000/svg"
-							width="18"
-							height="18"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="currentColor"
-							strokeWidth="2"
-							strokeLinecap="round"
-							strokeLinejoin="round"
-							className="mr-2 transition-transform group-hover:rotate-90"
-						>
-							<path d="M5 12h14" />
-							<path d="M12 5v14" />
-						</svg>
-						New Deck
-					</Button>
+							<div className="mb-6">
+								<Label
+									htmlFor="deck-description"
+									className="mb-2 block font-medium text-sm"
+								>
+									Description (optional)
+								</Label>
+								<Textarea
+									id="deck-description"
+									className="w-full rounded-lg border-foreground/10 bg-white focus:border-primary focus:ring-primary"
+									placeholder="What is this deck about?"
+									rows={3}
+								/>
+							</div>
+              <GradientPicker
+                background={background}
+                setBackground={setBackground}
+                className="w-full truncate"
+              />
+							<DialogFooter className="sm:justify-start">
+								<DialogClose asChild>
+									<Button type="button" variant="destructive">
+										Close
+									</Button>
+								</DialogClose>
+								<DialogClose asChild>
+									<Button type="submit" variant="default" style={{ background }}>
+										Create Deck
+									</Button>
+								</DialogClose>
+							</DialogFooter>
+						</DialogContent>
+					</Dialog>
 					<Button className="group" onClick={async () => await resetDatabase()}>
 						Reset Decks
 					</Button>
@@ -216,77 +274,75 @@ export default function DecksPage() {
 					</motion.div>
 				))}
 			</div>
-
-			{/* New Deck Modal */}
-			<AnimatePresence>
-				{showNewDeckModal && (
-					<motion.div
-						className="fixed inset-0 z-50 flex items-center justify-center bg-foreground/20 backdrop-blur-sm"
-						initial={{ opacity: 0 }}
-						animate={{ opacity: 1 }}
-						exit={{ opacity: 0 }}
-					>
-						<motion.div
-							className="w-full max-w-md rounded-2xl bg-background p-6 shadow-xl"
-							initial={{ scale: 0.9, opacity: 0 }}
-							animate={{ scale: 1, opacity: 1 }}
-							exit={{ scale: 0.9, opacity: 0 }}
-							transition={{ type: "spring", damping: 25, stiffness: 300 }}
-						>
-							<h2 className="mb-2 font-bold text-xl">Create New Deck</h2>
-							<p className="mb-6 text-foreground/60">
-								Add a new flashcard deck to your collection
-							</p>
-
-							<div className="mb-4">
-								<label
-									htmlFor="deck-name"
-									className="mb-2 block font-medium text-sm"
-								>
-									Deck Name
-								</label>
-								<input
-									id="deck-name"
-									type="text"
-									className="w-full rounded-lg border-foreground/10 bg-white focus:border-primary focus:ring-primary"
-									placeholder="e.g., French Vocabulary"
-								/>
-							</div>
-
-							<div className="mb-6">
-								<label
-									htmlFor="deck-description"
-									className="mb-2 block font-medium text-sm"
-								>
-									Description (optional)
-								</label>
-								<textarea
-									id="deck-description"
-									className="w-full rounded-lg border-foreground/10 bg-white focus:border-primary focus:ring-primary"
-									placeholder="What is this deck about?"
-									rows={3}
-								/>
-							</div>
-
-							<div className="flex gap-3">
-								<Button
-									variant="outline"
-									className="flex-1"
-									onClick={() => setShowNewDeckModal(false)}
-								>
-									Cancel
-								</Button>
-								<Button
-									className="flex-1"
-									onClick={() => setShowNewDeckModal(false)}
-								>
-									Create Deck
-								</Button>
-							</div>
-						</motion.div>
-					</motion.div>
-				)}
-			</AnimatePresence>
 		</div>
 	);
 }
+// <AnimatePresence>
+// 	{showNewDeckModal && (
+// 		<motion.div
+// 			className="fixed inset-0 z-50 flex items-center justify-center bg-foreground/20 backdrop-blur-sm"
+// 			initial={{ opacity: 0 }}
+// 			animate={{ opacity: 1 }}
+// 			exit={{ opacity: 0 }}
+// 		>
+// 			<motion.div
+// 				className="w-full max-w-md rounded-2xl bg-background p-6 shadow-xl"
+// 				initial={{ scale: 0.9, opacity: 0 }}
+// 				animate={{ scale: 1, opacity: 1 }}
+// 				exit={{ scale: 0.9, opacity: 0 }}
+// 				transition={{ type: "spring", damping: 25, stiffness: 300 }}
+// 			>
+// 				<h2 className="mb-2 font-bold text-xl">Create New Deck</h2>
+// 				<p className="mb-6 text-foreground/60">
+// 					Add a new flashcard deck to your collection
+// 				</p>
+//
+// 				<div className="mb-4">
+// 					<label
+// 						htmlFor="deck-name"
+// 						className="mb-2 block font-medium text-sm"
+// 					>
+// 						Deck Name
+// 					</label>
+// 					<input
+// 						id="deck-name"
+// 						type="text"
+// 						className="w-full rounded-lg border-foreground/10 bg-white focus:border-primary focus:ring-primary"
+// 						placeholder="e.g., French Vocabulary"
+// 					/>
+// 				</div>
+//
+// 				<div className="mb-6">
+// 					<label
+// 						htmlFor="deck-description"
+// 						className="mb-2 block font-medium text-sm"
+// 					>
+// 						Description (optional)
+// 					</label>
+// 					<textarea
+// 						id="deck-description"
+// 						className="w-full rounded-lg border-foreground/10 bg-white focus:border-primary focus:ring-primary"
+// 						placeholder="What is this deck about?"
+// 						rows={3}
+// 					/>
+// 				</div>
+//
+// 				<div className="flex gap-3">
+// 					<Button
+// 						variant="outline"
+// 						className="flex-1"
+// 						onClick={() => setShowNewDeckModal(false)}
+// 					>
+// 						Cancel
+// 					</Button>
+// 					<Button
+// 						className="flex-1"
+// 						onClick={() => setShowNewDeckModal(false)}
+// 					>
+// 						Create Deck
+// 					</Button>
+// 				</div>
+// 			</motion.div>
+// 		</motion.div>
+// 	)}
+// </AnimatePresence>

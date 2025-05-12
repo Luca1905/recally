@@ -20,6 +20,15 @@
         - [ ] DELETE decks
         - [ ] DELETE cards
 
+- [ ] Abstract UI into shadcn components + use lucide react icons
+    - [ ] app shell
+    - [ ] homepage (buttons)
+    - [ ] login page
+    - [ ] decks page
+    - [ ] deck detail page
+    - [ ] dashboard
+    - [ ] analytics
+    - [ ] study page
 - [ ] Leitner system integrated with review scheduling
 - [ ] Review session flow complete
 - [ ] Cards filterable by deck

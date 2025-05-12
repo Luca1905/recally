@@ -9,7 +9,6 @@ import { Button } from "~/components/ui/button";
 export default function DashboardPage() {
 	const [chartHovered, setChartHovered] = useState(false);
 
-	// Sample data for the activity chart
 	const weeklyActivity = [
 		{ day: "Mon", reviews: 15, newCards: 5 },
 		{ day: "Tue", reviews: 22, newCards: 8 },
@@ -20,7 +19,6 @@ export default function DashboardPage() {
 		{ day: "Sun", reviews: 8, newCards: 0 },
 	];
 
-	// Calculate max value for scaling
 	const maxValue = Math.max(
 		...weeklyActivity.map((d) => d.reviews + d.newCards),
 	);
