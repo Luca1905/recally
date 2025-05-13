@@ -2,9 +2,9 @@ import type React from "react";
 import AppShell from "~/components/app-shell";
 
 export default function AppLayout({
-	children,
+  children,
 }: {
-	children: React.ReactNode;
+  children: React.ReactNode;
 }) {
-	return <AppShell>{children}</AppShell>;
+  return <AppShell>{children}</AppShell>;
 }

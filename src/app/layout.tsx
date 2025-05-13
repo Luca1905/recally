@@ -7,33 +7,33 @@ import { ThemeProvider } from "~/components/theme-provider";
 import { TRPCReactProvider } from "~/trpc/react";
 
 export const metadata: Metadata = {
-	title: "recally",
-	description: "intelligent flashcards",
-	icons: [{ rel: "icon", url: "/favicon.ico" }],
+  title: "recally",
+  description: "intelligent flashcards",
+  icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
 const geist = Geist({
-	subsets: ["latin"],
-	variable: "--font-geist-sans",
+  subsets: ["latin"],
+  variable: "--font-geist-sans",
 });
 
 export default function RootLayout({
-	children,
+  children,
 }: Readonly<{ children: React.ReactNode }>) {
-	return (
-		<html lang="en" className={`${geist.variable}`} suppressHydrationWarning>
-			<body>
-				<TRPCReactProvider>
-					<ThemeProvider
-						attribute="class"
-						defaultTheme="system"
-						enableSystem
-						disableTransitionOnChange
-					>
-						{children}
-					</ThemeProvider>
-				</TRPCReactProvider>
-			</body>
-		</html>
-	);
+  return (
+    <html lang="en" className={`${geist.variable}`} suppressHydrationWarning>
+      <body>
+        <TRPCReactProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+          </ThemeProvider>
+        </TRPCReactProvider>
+      </body>
+    </html>
+  );
 }
