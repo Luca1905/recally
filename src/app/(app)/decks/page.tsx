@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useLiveQuery } from "dexie-react-hooks";
-import { Plus } from "lucide-react";
+import { Book, BookA, BookOpen, Clock, Ellipsis, Plus } from "lucide-react";
 import moment from "moment";
 import { motion } from "motion/react";
 import Link from "next/link";
@@ -229,7 +229,8 @@ export default function DecksPage() {
             onHoverEnd={() => setHoveredDeck(undefined)}
           >
             <div
-              className={`absolute top-0 left-0 h-24 w-full bg-gradient-to-r ${deck.color} opacity-90`}
+              className="absolute top-0 left-0 h-24 w-full opacity-90"
+              style={{ background: deck.color }}
             />
 
             <div className="relative rounded-xl bg-white p-5">
@@ -240,24 +241,11 @@ export default function DecksPage() {
                 transition={{ duration: 0.3, delay: 0.2 + 0.1 * index }}
               >
                 <h2 className="font-bold text-xl">{deck.name}</h2>
-                <Button className="h-8 w-8 rounded-lg text-foreground/60 hover:bg-primary/5 hover:text-primary">
-                  <svg
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="mx-auto"
-                  >
-                    <circle cx="12" cy="12" r="1" />
-                    <circle cx="19" cy="12" r="1" />
-                    <circle cx="5" cy="12" r="1" />
-                  </svg>
+                <Button
+                  className="h-8 w-8 rounded-lg text-foreground/60 hover:bg-primary/5 hover:text-primary"
+                  style={{ background: deck.color }}
+                >
+                  <Ellipsis />
                 </Button>
               </motion.div>
 
@@ -268,21 +256,7 @@ export default function DecksPage() {
                 transition={{ duration: 0.3, delay: 0.3 + 0.1 * index }}
               >
                 <div className="flex items-center gap-1 rounded-lg bg-primary/10 px-2 py-1 font-medium text-primary text-xs">
-                  <svg
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="14"
-                    height="14"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
-                    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
-                  </svg>
+                  <BookOpen size={15} style={{ color: deck.color }} />
                   {deck.cardCount} cards
                 </div>
               </motion.div>
@@ -299,7 +273,8 @@ export default function DecksPage() {
                 </div>
                 <div className="h-1.5 w-full overflow-hidden rounded-full bg-foreground/10">
                   <motion.div
-                    className="h-full rounded-full bg-primary"
+                    className="h-full rounded"
+                    style={{ background: deck.color }}
                     initial={{ width: 0 }}
                     animate={{ width: `${deck.progress}%` }}
                     transition={{ duration: 1, delay: 0.5 + 0.1 * index }}
@@ -313,21 +288,7 @@ export default function DecksPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: 0.5 + 0.1 * index }}
               >
-                <svg
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <circle cx="12" cy="12" r="10" />
-                  <polyline points="12 6 12 12 16 14" />
-                </svg>
+                <Clock size={14} />
                 Last studied {deck.lastStudied}
               </motion.div>
 
@@ -339,8 +300,8 @@ export default function DecksPage() {
               >
                 <Button
                   asChild
-                  className="flex-1"
-                  variant={hoveredDeck === deck.id ? "outline" : "default"}
+                  className="flex-1 text-primary-foreground"
+                  variant="default"
                 >
                   <Link href={`/study/${deck.id}`}>Study Now</Link>
                 </Button>
