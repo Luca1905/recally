@@ -8,7 +8,7 @@
 ## M2: Local-Only MVP 
 - [ ] Deck and flashcard CRUD via UI and Dexie
     - [ ] CREATE
-        - [ ] CREATE decks
+        - [x] CREATE decks
         - [ ] CREATE cards
     - [ ] READ 
         - [x] READ on decks details page

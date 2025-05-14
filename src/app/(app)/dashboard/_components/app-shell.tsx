@@ -7,8 +7,8 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Button } from "~/components/ui/button";
-import Logo from "./ui/logo";
-import { ModeToggle } from "./ui/mode-toggle";
+import Logo from "~/components/ui/logo";
+import { ModeToggle } from "~/components/ui/mode-toggle";
 
 interface NavItemProps {
   href: string;

@@ -3,7 +3,7 @@ import { seed } from "./seed";
 
 export interface Card {
   id?: number;
-  deckId: string;
+  deckId: number;
   front: string;
   back: string;
   imageUrl?: string;
@@ -29,8 +29,8 @@ export interface Deck {
 }
 
 export class RecallyDB extends Dexie {
-  deck_table!: Table<Deck, string>;
-  card_table!: Table<Card, string>;
+  deck_table!: Table<Deck, number>;
+  card_table!: Table<Card, number>;
   constructor() {
     super("RecallyDB");
     this.version(1).stores({
@@ -39,7 +39,7 @@ export class RecallyDB extends Dexie {
     });
   }
 
-  deleteDeck(deckId: string) {
+  deleteDeck(deckId: number) {
     return this.transaction("rw", this.card_table, this.deck_table, () => {
       this.card_table.where({ deckId }).delete();
       this.deck_table.delete(deckId);
