@@ -7,6 +7,7 @@ import {
   LifeBuoy,
   PlusIcon,
   Send,
+  WalletCards,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import type * as React from "react";
@@ -65,6 +66,11 @@ const data: NavSection = {
   ],
   decks: [
     {
+      title: "All Decks",
+      url: "/deck",
+      icon: WalletCards,
+    },
+    {
       title: "Heredity",
       url: "#",
       icon: Dna,
@@ -96,6 +102,12 @@ function updateActiveStatus(data: NavSection, pathName: string): NavSection {
       isActive: item.url === pathName,
     }));
   };
+
+  console.log("NavItems: ", {
+    navMain: processNavItems(data.navMain),
+    navSecondary: processNavItems(data.navSecondary),
+    decks: processNavItems(data.decks),
+  });
 
   return {
     navMain: processNavItems(data.navMain),

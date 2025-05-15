@@ -9,6 +9,8 @@ import {
   WalletCards,
 } from "lucide-react";
 
+import Link from "next/link";
+import { Button } from "~/components/ui/button";
 import {
   Collapsible,
   CollapsibleContent,
@@ -52,15 +54,23 @@ export function NavDecks({
             className="group/collapsible [&[data-state=open]>button>svg:first-child]:rotate-90"
             defaultOpen={true}
           >
-            <CollapsibleTrigger asChild>
-              <SidebarMenuButton>
-                <ChevronRight className="transition-transform" />
-                <Folder />
-                All Decks
+            <div
+              className={`flex items-center rounded-md rounded-r-2xl ${
+                decks[0]?.isActive ? "bg-sidebar-primary" : ""
+              }`}
+            >
+              <CollapsibleTrigger className="p-1">
+                <WalletCards size={16} />
+              </CollapsibleTrigger>
+
+              <SidebarMenuButton className="flex h-8 items-center rounded-md bg-sidebar text-sm">
+                <Link href="/deck" className="flex w-full items-center gap-1.5">
+                  <span className="truncate">All Decks</span>
+                </Link>
               </SidebarMenuButton>
-            </CollapsibleTrigger>
+            </div>
             <CollapsibleContent>
-              {decks.map((item) => (
+              {decks.slice(1).map((item) => (
                 <SidebarMenuSub key={item.title}>
                   <SidebarMenuButton asChild>
                     <a href={item.url}>
