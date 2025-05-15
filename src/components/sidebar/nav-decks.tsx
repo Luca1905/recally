@@ -55,11 +55,11 @@ export function NavDecks({
             defaultOpen={true}
           >
             <div
-              className={`flex items-center rounded-md rounded-r-2xl ${
+              className={`flex items-center rounded-md rounded-r-2xl justify-center ${
                 decks[0]?.isActive ? "bg-sidebar-primary" : ""
               }`}
             >
-              <CollapsibleTrigger className="p-1">
+              <CollapsibleTrigger className="px-[7.5px]">
                 <WalletCards size={16} />
               </CollapsibleTrigger>
 
