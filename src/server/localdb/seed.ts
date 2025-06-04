@@ -26,7 +26,7 @@ export async function seed() {
       box: 1,
       createdAt: now,
       updatedAt: now,
-      difficulty: "Easy",
+      type: "new",
     },
     {
       id: uuid(),
@@ -36,7 +36,7 @@ export async function seed() {
       box: 1,
       createdAt: now,
       updatedAt: now,
-      difficulty: "Easy",
+      type: "learn",
     },
     {
       id: uuid(),
@@ -46,7 +46,7 @@ export async function seed() {
       box: 1,
       createdAt: now,
       updatedAt: now,
-      difficulty: "Easy",
+      type: "due",
     },
   ]);
 }

@@ -13,7 +13,7 @@ export interface Card {
   nextReviewedAt?: number;
   createdAt: number;
   updatedAt: number;
-  difficulty: string;
+  type: "new" | "learn" | "due";
 }
 
 export interface Deck {
