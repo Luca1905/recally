@@ -49,12 +49,12 @@ export function CreateDeckDialog({
       const newDeck: LocalDeck = {
         id: uuid(),
         name: deckName,
-        lastModified: moment().milliseconds(),
+        lastModified: moment().valueOf(),
         cardCount: 0,
         description: "",
         tags: [],
         progress: 0,
-        createdAt: moment().milliseconds(),
+        createdAt: moment().valueOf(),
         color: "#ffffff",
       };
       createDeckAction(newDeck);

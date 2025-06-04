@@ -21,6 +21,7 @@ import {
   TableHeader,
   TableRow,
 } from "~/components/ui/table";
+import { formatUNIX } from "~/lib/utils";
 import type { Deck as LocalDeck } from "~/server/localdb/dexie";
 
 interface DeckListProps {
@@ -100,7 +101,7 @@ export function DeckList({ decks, onDeleteDeckAction }: DeckListProps) {
               <TableCell className="hidden sm:table-cell">
                 {deck.cardCount}
               </TableCell>
-              <TableCell>{moment(deck.lastModified).format()}</TableCell>
+              <TableCell>{formatUNIX(deck.lastModified)}</TableCell>
               <TableCell>
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
