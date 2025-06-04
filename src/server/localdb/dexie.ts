@@ -1,6 +1,8 @@
 import Dexie, { type Table } from "dexie";
 import { seed } from "./seed";
 
+Dexie.debug = "dexie";
+
 export interface Card {
   id: string;
   deckId: string;
@@ -32,6 +34,7 @@ export interface Deck {
 export class RecallyDB extends Dexie {
   deck_table!: Table<Deck, string>;
   card_table!: Table<Card, string>;
+
   constructor() {
     super("RecallyDB");
     this.version(1).stores({
