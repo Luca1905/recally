@@ -16,16 +16,18 @@ export interface Card {
   difficulty: string;
 }
 
+
 export interface Deck {
   id?: number;
   name: string;
-  description?: string;
+  description: string;
   color: string;
   cardCount: number;
   createdAt: string;
-  updatedAt: string;
+  lastModified: string;
   lastStudied?: string;
   progress: number;
+  tags: string[];
 }
 
 export class RecallyDB extends Dexie {
@@ -47,13 +49,13 @@ export class RecallyDB extends Dexie {
   }
 }
 
-export const db = new RecallyDB();
+export const dxdb = new RecallyDB();
 
-db.on("populate", seed);
+dxdb.on("populate", seed);
 
 export function resetDatabase() {
-  return db.transaction("rw", db.deck_table, db.card_table, async () => {
-    await Promise.all(db.tables.map((table) => table.clear()));
+  return dxdb.transaction("rw", dxdb.deck_table, dxdb.card_table, async () => {
+    await Promise.all(dxdb.tables.map((table) => table.clear()));
     await seed();
   });
 }
