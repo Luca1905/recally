@@ -12,7 +12,6 @@ export default function DecksHeader({
   return (
     <div className="mb-6 flex items-center justify-between">
       <GreetUser name={username} />
-      <h1 className="font-bold text-2xl text-foreground">All Decks</h1>
       <Button onClick={onCreate}>
         <Plus className="mr-2 h-4 w-4" />
         New Deck

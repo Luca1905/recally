@@ -14,7 +14,7 @@ export default function DecksContent({
 }: {
   decks: LocalDeck[];
   viewMode: "grid" | "list";
-  onDeleteDeck: (id: string) => void;
+  onDeleteDeck: (id: string) => Promise<number>;
   onCreateDeck: () => void;
   hasFilters: boolean;
   searchQuery: string;

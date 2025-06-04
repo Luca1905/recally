@@ -23,7 +23,7 @@ import type { Deck as LocalDeck } from "~/server/localdb/dexie";
 interface CreateDeckDialogProps {
   open: boolean;
   onOpenChangeAction: (open: boolean) => void;
-  createDeckAction: (deck: LocalDeck) => void;
+  createDeckAction: (deck: LocalDeck) => Promise<void>;
 }
 
 export function CreateDeckDialog({
@@ -57,13 +57,12 @@ export function CreateDeckDialog({
         createdAt: moment().valueOf(),
         color: "#ffffff",
       };
-      createDeckAction(newDeck);
+      await createDeckAction(newDeck);
 
       toast.success(`Deck "${deckName}" created successfully`);
       onOpenChangeAction(false);
       setDeckName("");
 
-      // Navigate to the new deck
       router.push(`/decks/${newDeck.id}`);
     } catch (error) {
       toast.error("Failed to create deck. Please try again.");
