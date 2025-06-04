@@ -103,12 +103,6 @@ function updateActiveStatus(data: NavSection, pathName: string): NavSection {
     }));
   };
 
-  console.log("NavItems: ", {
-    navMain: processNavItems(data.navMain),
-    navSecondary: processNavItems(data.navSecondary),
-    decks: processNavItems(data.decks),
-  });
-
   return {
     navMain: processNavItems(data.navMain),
     navSecondary: processNavItems(data.navSecondary),
