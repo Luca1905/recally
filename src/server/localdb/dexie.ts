@@ -2,46 +2,45 @@ import Dexie, { type Table } from "dexie";
 import { seed } from "./seed";
 
 export interface Card {
-  id?: number;
-  deckId: number;
+  id: string;
+  deckId: string;
   front: string;
   back: string;
   imageUrl?: string;
   audioUrl?: string;
   box: number;
-  lastReviewedAt?: string;
-  nextReviewedAt?: string;
-  createdAt: string;
-  updatedAt: string;
+  lastReviewedAt?: number;
+  nextReviewedAt?: number;
+  createdAt: number;
+  updatedAt: number;
   difficulty: string;
 }
 
-
 export interface Deck {
-  id?: number;
+  id: string;
   name: string;
   description: string;
   color: string;
   cardCount: number;
-  createdAt: string;
-  lastModified: string;
-  lastStudied?: string;
+  createdAt: number;
+  lastModified: number;
+  lastStudied?: number;
   progress: number;
   tags: string[];
 }
 
 export class RecallyDB extends Dexie {
-  deck_table!: Table<Deck, number>;
-  card_table!: Table<Card, number>;
+  deck_table!: Table<Deck, string>;
+  card_table!: Table<Card, string>;
   constructor() {
     super("RecallyDB");
     this.version(1).stores({
-      deck_table: "++id",
-      card_table: "++id, deckId",
+      deck_table: "&id",
+      card_table: "&id, deckId",
     });
   }
 
-  deleteDeck(deckId: number) {
+  deleteDeck(deckId: string) {
     return this.transaction("rw", this.card_table, this.deck_table, () => {
       this.card_table.where({ deckId }).delete();
       this.deck_table.delete(deckId);
