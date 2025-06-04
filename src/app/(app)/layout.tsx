@@ -1,3 +1,4 @@
+import { ModeToggle } from "~/components/ui/mode-toggle";
 import { Separator } from "~/components/ui/separator";
 import {
   SidebarInset,
@@ -21,6 +22,7 @@ export default function AppLayout({
               orientation="vertical"
               className="mr-2 data-[orientation=vertical]:h-4"
             />
+            <ModeToggle className="bg-accent" />
           </div>
         </header>
         {children}

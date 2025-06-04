@@ -37,7 +37,7 @@ export default function Page() {
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
-                <Button className="bg-orange-500 hover:bg-orange-600">
+                <Button className="bg-primary hover:bg-primary/90">
                   <Link href="/app" className="flex items-center">
                     <PlusIcon className="mr-2 h-4 w-4" />
                     New Deck
@@ -53,71 +53,73 @@ export default function Page() {
 
         {/* Stats Cards */}
         <div className="mb-8 grid grid-cols-1 gap-4 md:grid-cols-4">
-          <Card className="border-zinc-700 bg-zinc-800">
+          <Card className="border-border bg-card">
             <CardHeader className="pb-2">
               <div className="flex items-center justify-between">
-                <CardTitle className="text-sm text-zinc-400">
+                <CardTitle className="text-muted-foreground text-sm">
                   Total Decks
                 </CardTitle>
-                <BookOpenIcon className="h-4 w-4 text-purple-400" />
+                <BookOpenIcon className="h-4 w-4 text-primary" />
               </div>
             </CardHeader>
             <CardContent>
               <p className="font-bold text-2xl">3</p>
               <Badge
                 variant="outline"
-                className="mt-1 bg-transparent text-green-500 text-xs"
+                className="mt-1 bg-transparent text-primary text-xs"
               >
                 +1 this week
               </Badge>
             </CardContent>
           </Card>
 
-          <Card className="border-zinc-700 bg-zinc-800">
+          <Card className="border-border bg-card">
             <CardHeader className="pb-2">
               <div className="flex items-center justify-between">
-                <CardTitle className="text-sm text-zinc-400">
+                <CardTitle className="text-muted-foreground text-sm">
                   Total Cards
                 </CardTitle>
-                <BrainIcon className="h-4 w-4 text-blue-400" />
+                <BrainIcon className="h-4 w-4 text-primary" />
               </div>
             </CardHeader>
             <CardContent>
               <p className="font-bold text-2xl">43</p>
               <Badge
                 variant="outline"
-                className="mt-1 bg-transparent text-green-500 text-xs"
+                className="mt-1 bg-transparent text-primary text-xs"
               >
                 +4 this week
               </Badge>
             </CardContent>
           </Card>
 
-          <Card className="border-zinc-700 bg-zinc-800">
+          <Card className="border-border bg-card">
             <CardHeader className="pb-2">
               <div className="flex items-center justify-between">
-                <CardTitle className="text-sm text-zinc-400">
+                <CardTitle className="text-muted-foreground text-sm">
                   Study Time
                 </CardTitle>
-                <BarChart3Icon className="h-4 w-4 text-green-400" />
+                <BarChart3Icon className="h-4 w-4 text-primary" />
               </div>
             </CardHeader>
             <CardContent>
               <p className="font-bold text-2xl">2.5h</p>
               <Badge
                 variant="outline"
-                className="mt-1 bg-transparent text-green-500 text-xs"
+                className="mt-1 bg-transparent text-primary text-xs"
               >
                 +0.5h from last week
               </Badge>
             </CardContent>
           </Card>
 
-          <Card className="border-zinc-700 bg-zinc-800">
+          <Card className="border-border bg-card">
             <CardHeader className="pb-2">
               <div className="flex items-center justify-between">
-                <CardTitle className="text-sm text-zinc-400">Mastery</CardTitle>
-                <TrendingUpIcon className="h-4 w-4 text-orange-400" />
+                <CardTitle className="text-muted-foreground text-sm">
+                  Mastery
+                </CardTitle>
+                <TrendingUpIcon className="h-4 w-4 text-primary" />
               </div>
             </CardHeader>
             <CardContent>
@@ -125,7 +127,7 @@ export default function Page() {
               <Progress value={67} className="mt-2 h-1.5" />
               <Badge
                 variant="outline"
-                className="mt-1 bg-transparent text-green-500 text-xs"
+                className="mt-1 bg-transparent text-primary text-xs"
               >
                 +5% from last week
               </Badge>
@@ -136,11 +138,11 @@ export default function Page() {
         {/* Daily Streaks */}
         <div className="mb-8">
           <h2 className="mb-4 font-bold text-xl">Study Streak</h2>
-          <Card className="border-zinc-700 bg-zinc-800">
+          <Card className="border-border bg-card">
             <CardHeader className="pb-2">
               <div className="flex items-center gap-2">
                 <CardTitle>Current streak: 3 days</CardTitle>
-                <Badge className="bg-green-900/30 text-green-400 hover:bg-green-900/50">
+                <Badge className="bg-primary/20 text-primary hover:bg-primary/30">
                   +1 today
                 </Badge>
               </div>
@@ -157,13 +159,15 @@ export default function Page() {
                             <div
                               className={`mb-1 flex h-10 w-10 items-center justify-center rounded-full ${
                                 isActive
-                                  ? "bg-green-900/30 text-green-400"
-                                  : "bg-zinc-700/30 text-zinc-500"
+                                  ? "bg-primary/20 text-primary"
+                                  : "bg-muted text-muted-foreground"
                               }`}
                             >
                               <CalendarIcon className="h-5 w-5" />
                             </div>
-                            <div className="text-xs text-zinc-500">{day}</div>
+                            <div className="text-muted-foreground text-xs">
+                              {day}
+                            </div>
                           </TooltipTrigger>
                           <TooltipContent>
                             <p>{isActive ? "Studied" : "No study session"}</p>
@@ -182,52 +186,62 @@ export default function Page() {
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
           <div>
             <h2 className="mb-4 font-bold text-xl">Recent Activity</h2>
-            <Card className="border-zinc-700 bg-zinc-800">
+            <Card className="border-border bg-card">
               <CardContent className="p-6">
                 <ScrollArea className="h-[300px] pr-4">
                   <div className="space-y-4">
-                    <div className="border-purple-500 border-l-2 pl-4">
+                    <div className="border-primary border-l-2 pl-4">
                       <div className="font-medium text-sm">
                         Created new deck "Glossary of Key Terms"
                       </div>
-                      <div className="text-xs text-zinc-500">2 hours ago</div>
+                      <div className="text-muted-foreground text-xs">
+                        2 hours ago
+                      </div>
                     </div>
 
-                    <div className="border-blue-500 border-l-2 pl-4">
+                    <div className="border-primary border-l-2 pl-4">
                       <div className="font-medium text-sm">
                         Completed study session on "Anatomy Study Notes"
                       </div>
-                      <div className="text-xs text-zinc-500">
+                      <div className="text-muted-foreground text-xs">
                         Yesterday at 8:30 PM
                       </div>
                     </div>
 
-                    <div className="border-green-500 border-l-2 pl-4">
+                    <div className="border-primary border-l-2 pl-4">
                       <div className="font-medium text-sm">
                         Added 5 new cards to "Calculus Formulas"
                       </div>
-                      <div className="text-xs text-zinc-500">3 days ago</div>
+                      <div className="text-muted-foreground text-xs">
+                        3 days ago
+                      </div>
                     </div>
 
-                    <div className="border-orange-500 border-l-2 pl-4">
+                    <div className="border-primary border-l-2 pl-4">
                       <div className="font-medium text-sm">
                         Created new deck "Calculus Formulas"
                       </div>
-                      <div className="text-xs text-zinc-500">3 days ago</div>
+                      <div className="text-muted-foreground text-xs">
+                        3 days ago
+                      </div>
                     </div>
 
-                    <div className="border-purple-500 border-l-2 pl-4">
+                    <div className="border-primary border-l-2 pl-4">
                       <div className="font-medium text-sm">
                         Completed study session on "Glossary of Key Terms"
                       </div>
-                      <div className="text-xs text-zinc-500">4 days ago</div>
+                      <div className="text-muted-foreground text-xs">
+                        4 days ago
+                      </div>
                     </div>
 
-                    <div className="border-blue-500 border-l-2 pl-4">
+                    <div className="border-primary border-l-2 pl-4">
                       <div className="font-medium text-sm">
                         Added notes to "Anatomy Study Notes"
                       </div>
-                      <div className="text-xs text-zinc-500">5 days ago</div>
+                      <div className="text-muted-foreground text-xs">
+                        5 days ago
+                      </div>
                     </div>
                   </div>
                 </ScrollArea>
@@ -237,10 +251,10 @@ export default function Page() {
 
           <div>
             <h2 className="mb-4 font-bold text-xl">Due Soon</h2>
-            <Card className="mb-4 border-zinc-700 bg-zinc-800">
+            <Card className="mb-4 border-border bg-card">
               <CardContent className="p-6">
                 <Tabs defaultValue="today" className="w-full">
-                  <TabsList className="mb-4 grid grid-cols-3 bg-zinc-900">
+                  <TabsList className="mb-4 grid grid-cols-3 bg-muted">
                     <TabsTrigger value="today">Today</TabsTrigger>
                     <TabsTrigger value="tomorrow">Tomorrow</TabsTrigger>
                     <TabsTrigger value="week">This Week</TabsTrigger>
@@ -248,7 +262,7 @@ export default function Page() {
 
                   <TabsContent value="today">
                     <div className="space-y-2">
-                      <Card className="border-zinc-700 bg-zinc-700/30">
+                      <Card className="border-border bg-muted">
                         <CardContent className="flex items-center justify-between p-3">
                           <div>
                             <CardTitle className="font-medium text-sm">
@@ -261,7 +275,7 @@ export default function Page() {
                           <TooltipProvider>
                             <Tooltip>
                               <TooltipTrigger asChild>
-                                <Button className="h-8 bg-purple-600 text-xs hover:bg-purple-700">
+                                <Button className="h-8 bg-primary text-xs hover:bg-primary/90">
                                   Study Now
                                 </Button>
                               </TooltipTrigger>
@@ -273,7 +287,7 @@ export default function Page() {
                         </CardContent>
                       </Card>
 
-                      <Card className="border-zinc-700 bg-zinc-700/30">
+                      <Card className="border-border bg-muted">
                         <CardContent className="flex items-center justify-between p-3">
                           <div>
                             <CardTitle className="font-medium text-sm">
@@ -286,7 +300,7 @@ export default function Page() {
                           <TooltipProvider>
                             <Tooltip>
                               <TooltipTrigger asChild>
-                                <Button className="h-8 bg-purple-600 text-xs hover:bg-purple-700">
+                                <Button className="h-8 bg-primary text-xs hover:bg-primary/90">
                                   Study Now
                                 </Button>
                               </TooltipTrigger>
@@ -302,7 +316,7 @@ export default function Page() {
 
                   <TabsContent value="tomorrow">
                     <div className="space-y-2">
-                      <Card className="border-zinc-700 bg-zinc-700/30">
+                      <Card className="border-border bg-muted">
                         <CardContent className="flex items-center justify-between p-3">
                           <div>
                             <CardTitle className="font-medium text-sm">
@@ -315,7 +329,7 @@ export default function Page() {
                           <TooltipProvider>
                             <Tooltip>
                               <TooltipTrigger asChild>
-                                <Button className="h-8 bg-purple-600 text-xs hover:bg-purple-700">
+                                <Button className="h-8 bg-primary text-xs hover:bg-primary/90">
                                   Study Now
                                 </Button>
                               </TooltipTrigger>
@@ -330,7 +344,7 @@ export default function Page() {
                   </TabsContent>
 
                   <TabsContent value="week">
-                    <div className="p-4 text-center text-sm text-zinc-500">
+                    <div className="p-4 text-center text-muted-foreground text-sm">
                       No additional cards due this week.
                     </div>
                   </TabsContent>
@@ -341,7 +355,7 @@ export default function Page() {
             <div className="text-center">
               <Button
                 variant="outline"
-                className="w-full border-zinc-700 text-zinc-400"
+                className="w-full border-border text-muted-foreground"
               >
                 View All Due Cards
               </Button>

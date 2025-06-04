@@ -36,7 +36,7 @@ export function CreateDeckCard() {
 
       <CreateDeckDialog
         open={createDeckOpen}
-        onOpenChange={setCreateDeckOpen}
+        onOpenChangeAction={setCreateDeckOpen}
       />
     </>
   );

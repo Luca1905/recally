@@ -29,10 +29,10 @@ interface Deck {
 
 interface DeckListProps {
   decks: Deck[];
-  onDeleteDeck: (id: string) => void;
+  onDeleteDeckAction: (id: string) => void;
 }
 
-export function DeckList({ decks, onDeleteDeck }: DeckListProps) {
+export function DeckList({ decks, onDeleteDeckAction }: DeckListProps) {
   const [sortField, setSortField] = useState<"name" | "lastModified">("name");
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
@@ -164,7 +164,7 @@ export function DeckList({ decks, onDeleteDeck }: DeckListProps) {
                         </DropdownMenuItem>
                         <DropdownMenuItem
                           className="text-destructive focus:text-destructive"
-                          onClick={() => onDeleteDeck(deck.id)}
+                          onClick={() => onDeleteDeckAction(deck.id)}
                         >
                           Delete
                         </DropdownMenuItem>

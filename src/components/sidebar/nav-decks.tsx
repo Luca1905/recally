@@ -55,7 +55,7 @@ export function NavDecks({
             defaultOpen={true}
           >
             <div
-              className={`flex items-center rounded-md rounded-r-2xl justify-center ${
+              className={`flex items-center justify-center rounded-md rounded-r-2xl ${
                 decks[0]?.isActive ? "bg-sidebar-primary" : ""
               }`}
             >

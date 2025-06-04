@@ -130,8 +130,8 @@ export default function DecksPage() {
 
   return (
     <div className="flex flex-1 flex-col overflow-hidden">
-      <div className="mb-6">
-        <h1 className="font-bold text-2xl">
+      <div className="mb-6 p-4">
+        <h1 className="font-bold text-3xl text-muted-foreground">
           <span className="mr-1">👋</span> {(() => {
             const hour = new Date().getHours();
 
@@ -147,7 +147,7 @@ export default function DecksPage() {
       </div>
       <main className="flex-1 overflow-y-auto p-4 md:p-6">
         <div className="mb-6 flex items-center justify-between">
-          <h1 className="font-bold text-2xl">All Decks</h1>
+          <h1 className="font-bold text-2xl text-foreground">All Decks</h1>
           <Button onClick={() => setCreateDeckOpen(true)}>
             <Plus className="mr-2 h-4 w-4" />
             New Deck
@@ -176,7 +176,9 @@ export default function DecksPage() {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-56">
                   <div className="p-2">
-                    <div className="mb-2 font-medium text-sm">Tags</div>
+                    <div className="mb-2 font-medium text-foreground text-sm">
+                      Tags
+                    </div>
                     <div className="mb-4 flex flex-wrap gap-1">
                       {allTags.map((tag) => (
                         <Button
@@ -193,7 +195,9 @@ export default function DecksPage() {
                       ))}
                     </div>
 
-                    <div className="mb-2 font-medium text-sm">Sort by</div>
+                    <div className="mb-2 font-medium text-foreground text-sm">
+                      Sort by
+                    </div>
                     <Select
                       value={sortBy}
                       onValueChange={(value: string) =>
@@ -214,7 +218,9 @@ export default function DecksPage() {
                       </SelectContent>
                     </Select>
 
-                    <div className="mb-2 font-medium text-sm">Order</div>
+                    <div className="mb-2 font-medium text-foreground text-sm">
+                      Order
+                    </div>
                     <div className="flex gap-2">
                       <Button
                         variant={sortOrder === "asc" ? "default" : "outline"}
@@ -246,7 +252,7 @@ export default function DecksPage() {
                 </DropdownMenuContent>
               </DropdownMenu>
 
-              <div className="flex rounded-md border">
+              <div className="flex rounded-md border border-input">
                 <Button
                   variant={viewMode === "grid" ? "default" : "ghost"}
                   size="icon"
@@ -268,17 +274,14 @@ export default function DecksPage() {
           </div>
 
           {selectedTags.length > 0 && (
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="text-muted-foreground text-sm">
-                Active filters:
-              </span>
+            <div className="flex flex-wrap gap-2">
               {selectedTags.map((tag) => (
                 <Button
                   key={tag}
                   variant="secondary"
                   size="sm"
                   onClick={() => handleTagSelect(tag)}
-                  className="h-7 gap-1 text-xs"
+                  className="h-7 text-xs"
                 >
                   {tag}
                   <span className="ml-1">×</span>
@@ -287,7 +290,7 @@ export default function DecksPage() {
               <Button
                 variant="ghost"
                 size="sm"
-                onClick={() => setSelectedTags([])}
+                onClick={clearFilters}
                 className="h-7 text-xs"
               >
                 Clear all
@@ -297,32 +300,38 @@ export default function DecksPage() {
         </div>
 
         {sortedDecks.length === 0 ? (
-          <div className="flex flex-col items-center justify-center rounded-lg border border-dashed p-12 text-center">
-            <div className="mb-4 rounded-full bg-primary/10 p-3">
-              <Search className="h-6 w-6 text-primary" />
+          <div className="flex flex-col items-center justify-center rounded-lg border border-dashed p-8 text-center">
+            <div className="mb-4 rounded-full bg-muted p-3">
+              <Plus className="h-6 w-6 text-muted-foreground" />
             </div>
-            <h3 className="mb-2 font-semibold text-xl">No decks found</h3>
-            <p className="mb-6 max-w-md text-muted-foreground">
+            <h3 className="mb-2 font-medium text-foreground text-lg">
+              No decks found
+            </h3>
+            <p className="mb-4 text-muted-foreground text-sm">
               {searchQuery || selectedTags.length > 0
-                ? "Try adjusting your search or filters to find what you're looking for."
-                : "Create your first deck to get started with your flashcard journey."}
+                ? "Try adjusting your search or filters"
+                : "Create your first deck to get started"}
             </p>
             <Button onClick={() => setCreateDeckOpen(true)}>
               <Plus className="mr-2 h-4 w-4" />
-              Create New Deck
+              Create Deck
             </Button>
           </div>
         ) : viewMode === "grid" ? (
-          <DeckGrid decks={sortedDecks} onDeleteDeck={handleDeleteDeck} />
+          <DeckGrid decks={sortedDecks} onDeleteDeckAction={handleDeleteDeck} />
         ) : (
-          <DeckList decks={sortedDecks} onDeleteDeck={handleDeleteDeck} />
+          <DeckList decks={sortedDecks} onDeleteDeckAction={handleDeleteDeck} />
         )}
-
-        <CreateDeckDialog
-          open={createDeckOpen}
-          onOpenChange={setCreateDeckOpen}
-        />
       </main>
+
+      <CreateDeckDialog
+        open={createDeckOpen}
+        onOpenChangeAction={setCreateDeckOpen}
+        onDeckCreated={(newDeck) => {
+          setDecks([...decks, newDeck]);
+          setCreateDeckOpen(false);
+        }}
+      />
     </div>
   );
 }

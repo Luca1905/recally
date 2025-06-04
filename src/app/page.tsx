@@ -3,6 +3,7 @@
 import { motion } from "motion/react";
 import Link from "next/link";
 import { Button } from "~/components/ui/button";
+import Logo from "~/components/ui/logo";
 import { useMousePosition, useWindowSize } from "~/lib/hooks";
 
 export default function LandingPage() {
@@ -11,7 +12,7 @@ export default function LandingPage() {
 
   const calculateTransform = (x: number, y: number, strength = 20) => {
     if (windowSize.width === undefined || windowSize.height === undefined) {
-      return { x: 1920 / 2, y: 1080 / 2 };
+      return { x: 0, y: 0 };
     }
 
     const centerX = windowSize.width / 2;
@@ -24,213 +25,250 @@ export default function LandingPage() {
   };
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-primary-light via-background to-accent-light">
-      {/* Animated background elements */}
-      <div className="absolute inset-0 overflow-hidden">
+    <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-primary/10 via-background to-accent/10">
+      {/* Simplified background elements */}
+      <div className="absolute inset-0 overflow-hidden opacity-60">
         <motion.div
-          className="absolute top-20 left-[10%] h-64 w-64 rounded-full bg-primary/20 blur-3xl"
-          animate={{
-            x: [0, 30, 0],
-            y: [0, 20, 0],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Number.POSITIVE_INFINITY,
-            repeatType: "reverse",
-          }}
-        />
-        <motion.div
-          className="absolute right-[10%] bottom-20 h-80 w-80 rounded-full bg-secondary/20 blur-3xl"
-          animate={{
-            x: [0, -40, 0],
-            y: [0, 30, 0],
-          }}
-          transition={{
-            duration: 10,
-            repeat: Number.POSITIVE_INFINITY,
-            repeatType: "reverse",
-          }}
-        />
-        <motion.div
-          className="absolute top-[40%] left-[40%] h-72 w-72 rounded-full bg-accent/20 blur-3xl"
+          className="absolute top-20 left-[15%] h-48 w-48 rounded-full bg-primary/15 blur-3xl"
           animate={{
             x: [0, 20, 0],
-            y: [0, -30, 0],
+            y: [0, 15, 0],
           }}
           transition={{
             duration: 12,
             repeat: Number.POSITIVE_INFINITY,
             repeatType: "reverse",
+            ease: "easeInOut",
+          }}
+        />
+        <motion.div
+          className="absolute right-[15%] bottom-32 h-56 w-56 rounded-full bg-secondary/15 blur-3xl"
+          animate={{
+            x: [0, -25, 0],
+            y: [0, 20, 0],
+          }}
+          transition={{
+            duration: 15,
+            repeat: Number.POSITIVE_INFINITY,
+            repeatType: "reverse",
+            ease: "easeInOut",
           }}
         />
       </div>
 
-      {/* Decorative elements */}
-      <div className="absolute inset-0 z-0">
+      {/* Subtle decorative elements */}
+      <div className="absolute inset-0 z-0 opacity-40">
         <motion.div
-          className="absolute top-20 right-20 h-16 w-16 rounded-full border-2 border-primary/30"
+          className="absolute top-24 right-24 h-12 w-12 rounded-full border border-primary/20"
           style={{
-            transform: `translate(${calculateTransform(mousePosition.x, mousePosition.y, 40).x}px, ${calculateTransform(mousePosition.x, mousePosition.y, 40).y}px)`,
+            transform: `translate(${
+              calculateTransform(mousePosition.x, mousePosition.y, 50).x
+            }px, ${
+              calculateTransform(mousePosition.x, mousePosition.y, 50).y
+            }px)`,
           }}
         />
         <motion.div
-          className="absolute bottom-40 left-20 h-24 w-24 rounded-full border-2 border-secondary/30"
+          className="absolute bottom-48 left-24 h-8 w-8 rotate-45 border border-accent/20"
           style={{
-            transform: `translate(${calculateTransform(mousePosition.x, mousePosition.y, 60).x}px, ${calculateTransform(mousePosition.x, mousePosition.y, 60).y}px)`,
-          }}
-        />
-        <motion.div
-          className="absolute top-1/2 left-1/3 h-12 w-12 rotate-45 border-2 border-accent/30"
-          style={{
-            transform: `translate(${calculateTransform(mousePosition.x, mousePosition.y, 30).x}px, ${calculateTransform(mousePosition.x, mousePosition.y, 30).y}px) rotate(45deg)`,
+            transform: `translate(${
+              calculateTransform(mousePosition.x, mousePosition.y, 40).x
+            }px, ${
+              calculateTransform(mousePosition.x, mousePosition.y, 40).y
+            }px) rotate(45deg)`,
           }}
         />
       </div>
 
       {/* Content */}
       <div className="relative z-10 flex min-h-screen flex-col">
-        <header className="container mx-auto flex items-center justify-between p-6">
-          <motion.div
-            className="font-bold text-2xl text-primary"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            Recally
-          </motion.div>
-          <motion.div
-            className="flex items-center gap-4"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-          >
-            <Link
-              href="/login"
-              className="text-foreground/80 transition-colors hover:text-primary"
+        {/* Header with better spacing and hierarchy */}
+        <header className="container mx-auto px-6 py-8">
+          <nav className="flex items-center justify-between">
+            <motion.div
+              className="flex items-center gap-3"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
             >
-              Log In
-            </Link>
-            <Link
-              href="/signup"
-              className="rounded-full bg-primary px-4 py-2 text-white shadow-lg transition-colors hover:bg-primary-dark"
+              <div className="h-10 w-10">
+                <Logo />
+              </div>
+              <span className="font-semibold font-tagesschrift text-xl">
+                recally
+              </span>
+            </motion.div>
+
+            <motion.div
+              className="flex items-center gap-6"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
             >
-              Sign Up
-            </Link>
-          </motion.div>
+              <Link
+                href="/login"
+                className="rounded-md px-2 py-1 font-medium text-muted-foreground transition-colors hover:text-foreground focus:text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:ring-offset-2"
+              >
+                Log In
+              </Link>
+              <Button asChild size="sm" className="font-medium">
+                <Link href="/signup">Sign Up</Link>
+              </Button>
+            </motion.div>
+          </nav>
         </header>
 
-        <main className="container mx-auto flex flex-1 flex-col items-center justify-center px-6 py-12">
-          <div className="grid gap-12 md:grid-cols-2 md:gap-8 lg:gap-16">
-            <div className="flex flex-col justify-center">
-              <motion.h1
-                className="mb-6 font-bold text-5xl leading-tight md:text-6xl lg:text-7xl"
-                initial={{ opacity: 0, y: 20 }}
+        {/* Main content with improved typography and spacing */}
+        <main className="container mx-auto flex flex-1 items-center px-6 py-16">
+          <div className="grid w-full gap-16 lg:grid-cols-2 lg:gap-20">
+            {/* Content section with better typography hierarchy */}
+            <div className="flex flex-col justify-center space-y-8">
+              <motion.div
+                className="space-y-6"
+                initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
               >
-                <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                  Remember more
-                </span>
-                <br />
-                by spacing out your reviews
-              </motion.h1>
+                <h1 className="font-bold text-4xl leading-tight tracking-tight md:text-5xl lg:text-6xl">
+                  <span className="bg-gradient-to-r from-primary via-primary to-secondary-foreground bg-clip-text text-transparent">
+                    Remember more
+                  </span>
+                  <br />
+                  <span className="text-foreground">
+                    with spaced repetition
+                  </span>
+                </h1>
 
-              <motion.p
-                className="mb-8 max-w-md text-foreground/80 text-lg"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.2 }}
-              >
-                Recally uses science-backed spaced repetition to help you
-                remember what you learn, forever.
-              </motion.p>
+                <p className="max-w-lg text-lg text-muted-foreground leading-relaxed md:text-xl">
+                  Recally uses science-backed spaced repetition to help you
+                  retain knowledge effectively and permanently.
+                </p>
+              </motion.div>
 
               <motion.div
-                className="flex flex-wrap gap-4"
-                initial={{ opacity: 0, y: 20 }}
+                className="flex flex-col gap-4 sm:flex-row"
+                initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.4 }}
+                transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
               >
-                <Link
-                  href="/dashboard"
-                  className="group relative overflow-hidden rounded-full bg-gradient-to-r from-primary to-secondary px-8 py-3 text-white shadow-lg transition-all hover:shadow-xl"
+                <Button
+                  asChild
+                  size="lg"
+                  className="group font-semibold text-base shadow-lg transition-all hover:shadow-xl"
                 >
-                  <span className="relative z-10">Get Started</span>
-                  <span className="absolute inset-0 z-0 bg-gradient-to-r from-primary-dark to-secondary opacity-0 transition-opacity group-hover:opacity-100" />
-                </Link>
+                  <Link href="/dashboard">
+                    Get Started Free
+                    <span className="ml-2 transition-transform group-hover:translate-x-1">
+                      →
+                    </span>
+                  </Link>
+                </Button>
 
-                <Link
-                  href="#how-it-works"
-                  className="group rounded-full border-2 border-primary/30 bg-transparent px-8 py-3 text-primary transition-all hover:border-primary hover:bg-primary/5"
+                <Button
+                  asChild
+                  variant="outline"
+                  size="lg"
+                  className="font-semibold text-base"
                 >
-                  Learn More
-                  <span className="ml-2 inline-block transition-transform group-hover:translate-x-1">
-                    →
-                  </span>
-                </Link>
+                  <Link href="#how-it-works">Learn More</Link>
+                </Button>
+              </motion.div>
+
+              {/* Social proof or key features */}
+              <motion.div
+                className="flex items-center gap-6 pt-4 text-muted-foreground text-sm"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+              >
+                <div className="flex items-center gap-2">
+                  <div className="h-2 w-2 rounded-full bg-green-500" />
+                  <span>Science-backed</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="h-2 w-2 rounded-full bg-blue-500" />
+                  <span>Free to start</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="h-2 w-2 rounded-full bg-purple-500" />
+                  <span>Works offline</span>
+                </div>
               </motion.div>
             </div>
 
+            {/* Card demo with improved visual hierarchy */}
             <motion.div
-              className="relative flex items-center justify-center"
-              initial={{ opacity: 0, scale: 0.9 }}
+              className="flex items-center justify-center"
+              initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.7, delay: 0.3 }}
+              transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
             >
-              <div className="relative w-full max-w-md">
-                <div className="-left-6 -top-6 absolute h-24 w-24 rounded-xl bg-primary/20" />
-                <div className="-bottom-8 -right-8 absolute h-32 w-32 rounded-full bg-secondary/20" />
+              <div className="relative w-full max-w-sm">
+                {/* Simplified background decorations */}
+                <div className="-left-4 -top-4 absolute h-16 w-16 rounded-lg bg-primary/10" />
+                <div className="-bottom-6 -right-6 absolute h-20 w-20 rounded-full bg-secondary/10" />
 
                 <motion.div
-                  className="card-container relative w-full"
-                  whileHover={{ scale: 1.03 }}
-                  transition={{ type: "spring", stiffness: 300 }}
+                  className="relative"
+                  whileHover={{ y: -4 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 30 }}
                 >
-                  <div className="card relative rounded-2xl bg-white p-6 shadow-xl">
+                  <div className="rounded-2xl border bg-card p-6 shadow-2xl">
+                    {/* Card header with better spacing */}
                     <div className="mb-6 flex items-center justify-between">
                       <div className="flex items-center gap-3">
-                        <div className="h-10 w-10 rounded-full bg-primary/20 p-2">
-                          <div className="h-full w-full rounded-full bg-primary" />
+                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10">
+                          <div className="h-4 w-4 rounded-full bg-primary" />
                         </div>
                         <div>
-                          <div className="font-medium">Spanish Vocabulary</div>
-                          <div className="text-foreground/60 text-xs">
+                          <div className="font-semibold text-card-foreground">
+                            Spanish Vocabulary
+                          </div>
+                          <div className="text-muted-foreground text-xs">
                             120 cards
                           </div>
                         </div>
                       </div>
                       <div className="rounded-full bg-primary/10 px-3 py-1 font-medium text-primary text-xs">
-                        12 due today
+                        12 due
                       </div>
                     </div>
 
-                    <div className="mb-6 rounded-xl bg-primary/5 p-6">
-                      <div className="mb-2 font-medium text-primary text-sm">
-                        Front
+                    {/* Card content with better contrast */}
+                    <div className="space-y-4">
+                      <div className="rounded-lg border bg-muted/30 p-4">
+                        <div className="mb-2 font-medium text-muted-foreground text-xs uppercase tracking-wide">
+                          Question
+                        </div>
+                        <div className="font-semibold text-xl">
+                          ¿Cómo estás?
+                        </div>
                       </div>
-                      <div className="font-bold text-2xl">¿Cómo estás?</div>
+
+                      <div className="rounded-lg border bg-muted/30 p-4">
+                        <div className="mb-2 font-medium text-muted-foreground text-xs uppercase tracking-wide">
+                          Answer
+                        </div>
+                        <div className="font-semibold text-xl">
+                          How are you?
+                        </div>
+                      </div>
                     </div>
 
-                    <div className="mb-6 rounded-xl bg-secondary/5 p-6">
-                      <div className="mb-2 font-medium text-secondary text-sm">
-                        Back
-                      </div>
-                      <div className="font-bold text-2xl">How are you?</div>
-                    </div>
-
-                    <div className="flex justify-between gap-2">
-                      {[1, 2, 3, 4, 5].map((rating) => (
+                    {/* Simplified rating buttons */}
+                    <div className="mt-6 flex justify-between gap-2">
+                      {[
+                        { rating: 1, label: "Hard", color: "bg-red-500" },
+                        { rating: 2, label: "Good", color: "bg-yellow-500" },
+                        { rating: 3, label: "Easy", color: "bg-green-500" },
+                      ].map(({ rating, label, color }) => (
                         <Button
                           key={rating}
-                          className={`flex h-12 w-12 items-center justify-center rounded-full text-white transition-transform hover:scale-110 ${
-                            rating <= 2
-                              ? "bg-danger hover:bg-danger/90"
-                              : rating === 3
-                                ? "bg-warning hover:bg-warning/90"
-                                : "bg-success hover:bg-success/90"
-                          }`}
+                          variant="outline"
+                          size="sm"
+                          className="flex-1 font-medium"
                         >
-                          {rating}
+                          {label}
                         </Button>
                       ))}
                     </div>

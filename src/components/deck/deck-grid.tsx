@@ -31,10 +31,10 @@ interface Deck {
 
 interface DeckGridProps {
   decks: Deck[];
-  onDeleteDeck: (id: string) => void;
+  onDeleteDeckAction: (id: string) => void;
 }
 
-export function DeckGrid({ decks, onDeleteDeck }: DeckGridProps) {
+export function DeckGrid({ decks, onDeleteDeckAction }: DeckGridProps) {
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       {decks.map((deck) => (
@@ -64,7 +64,7 @@ export function DeckGrid({ decks, onDeleteDeck }: DeckGridProps) {
                   </DropdownMenuItem>
                   <DropdownMenuItem
                     className="text-destructive focus:text-destructive"
-                    onClick={() => onDeleteDeck(deck.id)}
+                    onClick={() => onDeleteDeckAction(deck.id)}
                   >
                     Delete
                   </DropdownMenuItem>

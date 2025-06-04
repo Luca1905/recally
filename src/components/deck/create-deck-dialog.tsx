@@ -19,12 +19,21 @@ import { Label } from "~/components/ui/label";
 
 interface CreateDeckDialogProps {
   open: boolean;
-  onOpenChange: (open: boolean) => void;
+  onOpenChangeAction: (open: boolean) => void;
+  onDeckCreated?: (deck: {
+    id: string;
+    name: string;
+    lastModified: Date;
+    cardCount: number;
+    description: string;
+    tags: string[];
+  }) => void;
 }
 
 export function CreateDeckDialog({
   open,
-  onOpenChange,
+  onOpenChangeAction,
+  onDeckCreated,
 }: CreateDeckDialogProps) {
   const router = useRouter();
   const [deckName, setDeckName] = useState("");
@@ -45,12 +54,24 @@ export function CreateDeckDialog({
       // For now, we'll simulate a successful creation
       await new Promise((resolve) => setTimeout(resolve, 500));
 
+      const newDeck = {
+        id: Date.now().toString(),
+        name: deckName,
+        lastModified: new Date(),
+        cardCount: 0,
+        description: "",
+        tags: [],
+      };
+
       toast.success(`Deck "${deckName}" created successfully`);
-      onOpenChange(false);
+      onOpenChangeAction(false);
       setDeckName("");
 
+      // Call onDeckCreated if provided
+      onDeckCreated?.(newDeck);
+
       // Navigate to the new deck
-      router.push(`/decks/${Date.now()}`);
+      router.push(`/decks/${newDeck.id}`);
     } catch (error) {
       toast.error("Failed to create deck. Please try again.");
     } finally {
@@ -59,7 +80,7 @@ export function CreateDeckDialog({
   };
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog open={open} onOpenChange={onOpenChangeAction}>
       <DialogContent className="sm:max-w-[425px]">
         <form onSubmit={handleSubmit}>
           <DialogHeader>
@@ -86,7 +107,7 @@ export function CreateDeckDialog({
             <Button
               type="button"
               variant="outline"
-              onClick={() => onOpenChange(false)}
+              onClick={() => onOpenChangeAction(false)}
             >
               Cancel
             </Button>
