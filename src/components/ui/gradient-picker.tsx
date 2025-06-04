@@ -21,18 +21,21 @@ export function PickerExample() {
       className="preview !bg-cover !bg-center flex h-full min-h-[350px] w-full items-center justify-center rounded p-10 transition-all"
       style={{ background }}
     >
-      <GradientPicker background={background} setBackground={setBackground} />
+      <GradientPicker
+        background={background}
+        setBackgroundAction={setBackground}
+      />
     </div>
   );
 }
 
 export function GradientPicker({
   background,
-  setBackground,
+  setBackgroundAction,
   className,
 }: {
   background: string;
-  setBackground: (background: string) => void;
+  setBackgroundAction: (background: string) => void;
   className?: string;
 }) {
   const solids = [
@@ -113,8 +116,8 @@ export function GradientPicker({
                 key={s}
                 style={{ background: s }}
                 className="h-6 w-6 cursor-pointer rounded-md active:scale-105"
-                onClick={() => setBackground(s)}
-                onKeyDown={() => setBackground(s)}
+                onClick={() => setBackgroundAction(s)}
+                onKeyDown={() => setBackgroundAction(s)}
               />
             ))}
           </TabsContent>
@@ -126,8 +129,8 @@ export function GradientPicker({
                   key={s}
                   style={{ background: s }}
                   className="h-6 w-6 cursor-pointer rounded-md active:scale-105"
-                  onClick={() => setBackground(s)}
-                  onKeyDown={() => setBackground(s)}
+                  onClick={() => setBackgroundAction(s)}
+                  onKeyDown={() => setBackgroundAction(s)}
                 />
               ))}
             </div>
@@ -139,7 +142,7 @@ export function GradientPicker({
           id="custom"
           value={background}
           className="col-span-2 mt-4 h-8"
-          onChange={(e) => setBackground(e.currentTarget.value)}
+          onChange={(e) => setBackgroundAction(e.currentTarget.value)}
         />
       </PopoverContent>
     </Popover>

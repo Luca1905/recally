@@ -20,6 +20,12 @@
           }
         }
       },
+      "correctness": {
+        "useExhaustiveDependencies": "off"
+      },
+      "style": {
+        "noUselessElse": "warn"
+      },
       "recommended": true
     }
   }
