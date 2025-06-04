@@ -52,7 +52,8 @@ export default function Page() {
   });
 
   const handleDelete = async (id: string) => {
-    await dxdb.deck_table.where("id").equals(id).delete();
+    await dxdb.card_table.where({ deckId: id }).delete();
+    return await dxdb.deck_table.where({ id }).delete();
   };
 
   const toggleTag = (tag: string) =>
@@ -70,7 +71,10 @@ export default function Page() {
   return (
     <div className="flex flex-1 flex-col overflow-hidden">
       <main className="flex-1 overflow-y-auto p-4 md:p-6">
-        <DecksHeader onCreate={() => setCreateDeckOpen(true)} />
+        <DecksHeader
+          onCreate={() => setCreateDeckOpen(true)}
+          username="TO IMPLEMENT"
+        />
         <DecksFilterBar
           searchQuery={searchQuery}
           onSearchChange={setSearchQuery}

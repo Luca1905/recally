@@ -27,6 +27,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "~/components/ui/tooltip";
+import { resetDatabase } from "~/server/localdb/dexie";
 
 export default function Page() {
   return (
@@ -34,6 +35,9 @@ export default function Page() {
       <div className="p-8">
         <div className="mb-8 flex items-center justify-between">
           <h1 className="font-bold text-2xl">Dashboard</h1>
+          <Button onClick={async () => await resetDatabase()} type="submit">
+            RESET DXDB
+          </Button>
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
