@@ -2,9 +2,11 @@
 
 import type React from "react";
 
+import moment from "moment";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
+import { v4 as uuid } from "uuid";
 import { Button } from "~/components/ui/button";
 import {
   Dialog,
@@ -16,24 +18,18 @@ import {
 } from "~/components/ui/dialog";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
+import type { Deck as LocalDeck } from "~/server/localdb/dexie";
 
 interface CreateDeckDialogProps {
   open: boolean;
   onOpenChangeAction: (open: boolean) => void;
-  onDeckCreated?: (deck: {
-    id: string;
-    name: string;
-    lastModified: Date;
-    cardCount: number;
-    description: string;
-    tags: string[];
-  }) => void;
+  createDeckAction: (deck: LocalDeck) => void;
 }
 
 export function CreateDeckDialog({
   open,
   onOpenChangeAction,
-  onDeckCreated,
+  createDeckAction,
 }: CreateDeckDialogProps) {
   const router = useRouter();
   const [deckName, setDeckName] = useState("");
@@ -50,25 +46,22 @@ export function CreateDeckDialog({
     setIsSubmitting(true);
 
     try {
-      // In a real app, this would be an API call to create the deck
-      // For now, we'll simulate a successful creation
-      await new Promise((resolve) => setTimeout(resolve, 500));
-
-      const newDeck = {
-        id: Date.now().toString(),
+      const newDeck: LocalDeck = {
+        id: uuid(),
         name: deckName,
-        lastModified: new Date(),
+        lastModified: moment().milliseconds(),
         cardCount: 0,
         description: "",
         tags: [],
+        progress: 0,
+        createdAt: moment().milliseconds(),
+        color: "#ffffff",
       };
+      createDeckAction(newDeck);
 
       toast.success(`Deck "${deckName}" created successfully`);
       onOpenChangeAction(false);
       setDeckName("");
-
-      // Call onDeckCreated if provided
-      onDeckCreated?.(newDeck);
 
       // Navigate to the new deck
       router.push(`/decks/${newDeck.id}`);

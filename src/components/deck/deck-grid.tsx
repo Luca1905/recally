@@ -19,18 +19,10 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
-
-interface Deck {
-  id: string;
-  name: string;
-  lastModified: Date;
-  cardCount: number;
-  description: string;
-  tags?: string[];
-}
+import type { Deck as LocalDeck } from "~/server/localdb/dexie";
 
 interface DeckGridProps {
-  decks: Deck[];
+  decks: LocalDeck[];
   onDeleteDeckAction: (id: string) => void;
 }
 

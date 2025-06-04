@@ -3,7 +3,7 @@ import { v4 as uuid } from "uuid";
 import { dxdb } from "./dexie";
 
 export async function seed() {
-  const now = moment().milliseconds();
+  const now = moment().valueOf();
   const deckId = await dxdb.deck_table.add({
     id: uuid(),
     name: "Heredity",
@@ -16,6 +16,7 @@ export async function seed() {
     description: "Cards for the exam in heredity",
     tags: ["biology"],
   });
+  console.log("creating with time: ", now);
   await dxdb.card_table.bulkAdd([
     {
       id: uuid(),
