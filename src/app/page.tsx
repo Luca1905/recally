@@ -106,13 +106,13 @@ export default function LandingPage() {
               transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
             >
               <Link
-                href="/login"
+                href="/sign-in"
                 className="rounded-md px-2 py-1 font-medium text-muted-foreground transition-colors hover:text-foreground focus:text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:ring-offset-2"
               >
                 Log In
               </Link>
               <Button asChild size="sm" className="font-medium">
-                <Link href="/signup">Sign Up</Link>
+                <Link href="/sign-up">Sign Up</Link>
               </Button>
             </motion.div>
           </nav>
