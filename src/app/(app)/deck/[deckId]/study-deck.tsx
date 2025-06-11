@@ -61,21 +61,45 @@ export default function StudyPage({ deckId }: { deckId: string }) {
 
   if (cardStats.totalQuestions === 0 && !isFinished) {
     return (
-      <div className="flex min-h-screen flex-col items-center justify-center bg-background text-white">
-        <div className="fixed top-0 flex w-full items-center justify-start border-background border-b bg-background p-4">
+      <div className="min-h-screen bg-background text-white">
+        <div className="sticky top-0 z-10 flex w-full items-center justify-start border-background border-b bg-background p-4">
           <Button
             variant="ghost"
             size="sm"
             className="text-muted-foreground hover:text-foreground"
             onClick={() => {
-              redirect("/deck");
+              router.push("/deck");
             }}
             title="Exit Study Session"
           >
             <X className="h-4 w-4" />
           </Button>
         </div>
-        <p className="text-xl">No cards in this deck to study.</p>
+        <div className="flex flex-1 flex-col items-center justify-center p-8 pt-16 text-center">
+          <h2 className="mb-4 font-bold text-2xl">This deck is empty</h2>
+          <p className="mb-6 text-gray-400 text-lg">
+            Add some cards to start studying
+          </p>
+          <div className="flex gap-3">
+            <Button
+              onClick={() => {
+                router.push(`/deck/${deckId}/add`);
+              }}
+              className="bg-red-600 text-white hover:bg-red-700"
+            >
+              Add Cards
+            </Button>
+            <Button
+              variant="outline"
+              onClick={() => {
+                router.push("/deck");
+              }}
+              className="border-gray-700 bg-gray-800 text-white hover:bg-gray-700"
+            >
+              Back to Decks
+            </Button>
+          </div>
+        </div>
       </div>
     );
   }

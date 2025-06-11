@@ -1,7 +1,7 @@
 "use client";
 
-import moment from "moment";
 import { ArrowLeft } from "lucide-react";
+import moment from "moment";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -53,7 +53,7 @@ export default function CreateDeckPage() {
   return (
     <div className="flex min-h-screen flex-col bg-background text-foreground">
       {/* Header */}
-      <header className="sticky top-0 z-10 flex items-center gap-2 border-b border-border bg-background p-4">
+      <header className="sticky top-0 z-10 flex items-center gap-2 border-border border-b bg-background p-4">
         <Button
           variant="ghost"
           size="sm"
@@ -63,7 +63,7 @@ export default function CreateDeckPage() {
         >
           <ArrowLeft className="h-4 w-4" />
         </Button>
-        <h1 className="text-lg font-semibold">Create New Deck</h1>
+        <h1 className="font-semibold text-lg">Create New Deck</h1>
       </header>
 
       {/* Content */}
@@ -73,7 +73,7 @@ export default function CreateDeckPage() {
           className="w-full max-w-md space-y-6 rounded-lg border border-border bg-card p-6 shadow-sm"
         >
           <div className="space-y-2">
-            <Label htmlFor="deck-name" className="text-sm font-medium">
+            <Label htmlFor="deck-name" className="font-medium text-sm">
               Deck name
             </Label>
             <Input
@@ -102,4 +102,4 @@ export default function CreateDeckPage() {
       </main>
     </div>
   );
-} 
+}

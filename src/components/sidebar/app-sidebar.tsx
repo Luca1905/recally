@@ -32,8 +32,8 @@ import { NavUser } from "./nav-user";
 const data: NavSection = {
   navMain: [
     {
-      title: "New Deck",
-      url: "/deck/new",
+      title: "New Card",
+      url: "/card/new",
       icon: PlusIcon,
     },
     {

@@ -12,7 +12,7 @@ import DecksTagChips from "~/components/deck/decks-tag-chips";
 import { dxdb } from "~/server/localdb/dexie";
 
 export default function Page() {
-  const { isSignedIn, user, isLoaded } = useUser()
+  const { isSignedIn, user, isLoaded } = useUser();
   const decks = useLiveQuery(() => dxdb.deck_table.toArray());
   const [searchQuery, setSearchQuery] = useState("");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
@@ -24,11 +24,11 @@ export default function Page() {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
   if (!isLoaded) {
-    return <div>Loading...</div>
+    return <div>Loading...</div>;
   }
 
   if (!isSignedIn) {
-    return <div>Sign in to view this page</div>
+    return <div>Sign in to view this page</div>;
   }
 
   if (decks === undefined) {
