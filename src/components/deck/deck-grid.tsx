@@ -51,10 +51,10 @@ export function DeckGrid({ decks, onDeleteDeckAction }: DeckGridProps) {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
                   <DropdownMenuItem asChild>
-                    <Link href={`/decks/${deck.id}`}>Open</Link>
+                    <Link href={`/deck/${deck.id}`}>Open</Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link href={`/decks/${deck.id}/edit`}>Edit</Link>
+                    <Link href={`/deck/${deck.id}/edit`}>Edit</Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem
                     className="text-destructive focus:text-destructive"

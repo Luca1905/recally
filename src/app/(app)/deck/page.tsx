@@ -1,5 +1,7 @@
 "use client";
 
+import { useUser } from "@clerk/nextjs";
+import { auth, currentUser } from "@clerk/nextjs/server";
 import { useLiveQuery } from "dexie-react-hooks";
 import { useState } from "react";
 import { CreateDeckDialog } from "~/components/deck/create-deck-dialog";
@@ -10,6 +12,7 @@ import DecksTagChips from "~/components/deck/decks-tag-chips";
 import { dxdb } from "~/server/localdb/dexie";
 
 export default function Page() {
+  const { isSignedIn, user, isLoaded } = useUser()
   const decks = useLiveQuery(() => dxdb.deck_table.toArray());
   const [searchQuery, setSearchQuery] = useState("");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
@@ -19,6 +22,14 @@ export default function Page() {
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
   const [createDeckOpen, setCreateDeckOpen] = useState(false);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
+
+  if (!isLoaded) {
+    return <div>Loading...</div>
+  }
+
+  if (!isSignedIn) {
+    return <div>Sign in to view this page</div>
+  }
 
   if (decks === undefined) {
     return <div>Error loading decks</div>;
@@ -73,7 +84,7 @@ export default function Page() {
       <main className="flex-1 overflow-y-auto p-4 md:p-6">
         <DecksHeader
           onCreate={() => setCreateDeckOpen(true)}
-          username="TO IMPLEMENT"
+          username={user.firstName ?? ""}
         />
         <DecksFilterBar
           searchQuery={searchQuery}

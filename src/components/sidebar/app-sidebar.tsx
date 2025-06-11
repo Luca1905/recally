@@ -33,7 +33,7 @@ const data: NavSection = {
   navMain: [
     {
       title: "New Deck",
-      url: "#",
+      url: "/deck/new",
       icon: PlusIcon,
     },
     {
