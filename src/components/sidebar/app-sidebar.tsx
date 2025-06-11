@@ -1,8 +1,6 @@
 "use client";
 
 import {
-  Dna,
-  Globe2,
   LayoutDashboard,
   LifeBuoy,
   PlusIcon,
@@ -12,8 +10,10 @@ import {
 import type { LucideIcon } from "lucide-react";
 import type * as React from "react";
 
+import { useLiveQuery } from "dexie-react-hooks";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useMemo } from "react";
 import Logo from "~/components/ui/logo";
 import {
   Sidebar,
@@ -24,59 +24,38 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "~/components/ui/sidebar";
+import { dxdb } from "~/server/localdb/dexie";
 import { NavDecks } from "./nav-decks";
 import { NavMain } from "./nav-main";
 import { NavSecondary } from "./nav-secondary";
 import { NavUser } from "./nav-user";
 
-const data: NavSection = {
-  navMain: [
-    {
-      title: "New Card",
-      url: "/card/new",
-      icon: PlusIcon,
-    },
-    {
-      title: "Dashboard",
-      url: "/dashboard",
-      icon: LayoutDashboard,
-    },
-    // {
-    //   title: "Settings",
-    //   url: "#",
-    //   icon: Settings2,
-    // },
-  ],
-  navSecondary: [
-    {
-      title: "Support",
-      url: "#",
-      icon: LifeBuoy,
-    },
-    {
-      title: "Feedback",
-      url: "#",
-      icon: Send,
-    },
-  ],
-  decks: [
-    {
-      title: "All Decks",
-      url: "/deck",
-      icon: WalletCards,
-    },
-    {
-      title: "Heredity",
-      url: "#",
-      icon: Dna,
-    },
-    {
-      title: "City Geography",
-      url: "#",
-      icon: Globe2,
-    },
-  ],
-};
+// Static sections (top & bottom)
+const NAV_MAIN: NavItem[] = [
+  {
+    title: "New Card",
+    url: "/card/new",
+    icon: PlusIcon,
+  },
+  {
+    title: "Dashboard",
+    url: "/dashboard",
+    icon: LayoutDashboard,
+  },
+];
+
+const NAV_SECONDARY: NavItem[] = [
+  {
+    title: "Support",
+    url: "#",
+    icon: LifeBuoy,
+  },
+  {
+    title: "Feedback",
+    url: "#",
+    icon: Send,
+  },
+];
 
 export interface NavItem {
   title: string;
@@ -107,7 +86,32 @@ function updateActiveStatus(data: NavSection, pathName: string): NavSection {
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const pathName = usePathname();
-  const updatedData = updateActiveStatus(data, pathName);
+
+  // Fetch decks from local DB (Dexie)
+  const decksFromDb = useLiveQuery(() => dxdb.deck_table.toArray());
+
+  const updatedData: NavSection = useMemo(() => {
+    const deckNavItems: NavItem[] = [
+      {
+        title: "All Decks",
+        url: "/deck",
+        icon: WalletCards,
+      },
+      ...((decksFromDb ?? []).map((d) => ({
+        title: d.name,
+        url: `/deck/${d.id}`,
+        icon: WalletCards,
+      })) as NavItem[]),
+    ];
+
+    const dynamicData: NavSection = {
+      navMain: NAV_MAIN,
+      navSecondary: NAV_SECONDARY,
+      decks: deckNavItems,
+    };
+
+    return updateActiveStatus(dynamicData, pathName);
+  }, [decksFromDb, pathName]);
 
   return (
     <Sidebar variant="floating" {...props}>

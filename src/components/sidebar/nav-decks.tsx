@@ -72,11 +72,14 @@ export function NavDecks({
             <CollapsibleContent>
               {decks.slice(1).map((item) => (
                 <SidebarMenuSub key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <a href={item.url}>
+                  <SidebarMenuButton
+                    className={item.isActive ? "bg-sidebar-primary" : ""}
+                    asChild
+                  >
+                    <Link href={item.url} className="flex items-center gap-1.5">
                       <item.icon />
                       <span>{item.title}</span>
-                    </a>
+                    </Link>
                   </SidebarMenuButton>
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>

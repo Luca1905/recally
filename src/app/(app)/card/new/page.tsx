@@ -1,15 +1,14 @@
 "use client";
 
-import moment from "moment";
-import { ArrowLeft } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { useLiveQuery } from "dexie-react-hooks";
+import { ArrowLeft } from "lucide-react";
+import moment from "moment";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 import { v4 as uuid } from "uuid";
 import { Button } from "~/components/ui/button";
 import { Label } from "~/components/ui/label";
-import { Textarea } from "~/components/ui/textarea";
 import {
   Select,
   SelectContent,
@@ -17,6 +16,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "~/components/ui/select";
+import { Textarea } from "~/components/ui/textarea";
 import { dxdb } from "~/server/localdb/dexie";
 
 export default function GlobalCardAddPage() {
@@ -88,7 +88,7 @@ export default function GlobalCardAddPage() {
         >
           <ArrowLeft className="h-4 w-4" />
         </Button>
-        <h1 className="text-lg font-semibold">Add New Card</h1>
+        <h1 className="font-semibold text-lg">Add New Card</h1>
       </header>
 
       {/* Content */}
@@ -103,7 +103,7 @@ export default function GlobalCardAddPage() {
             {decks === undefined ? (
               <p>Loading decks...</p>
             ) : decks.length === 0 ? (
-              <p className="text-sm text-muted-foreground">
+              <p className="text-muted-foreground text-sm">
                 No decks available. Please create a deck first.
               </p>
             ) : (
@@ -156,7 +156,10 @@ export default function GlobalCardAddPage() {
             >
               Cancel
             </Button>
-            <Button type="submit" disabled={isSubmitting || decks?.length === 0}>
+            <Button
+              type="submit"
+              disabled={isSubmitting || decks?.length === 0}
+            >
               {isSubmitting ? "Saving..." : "Add Card"}
             </Button>
           </div>
@@ -164,4 +167,4 @@ export default function GlobalCardAddPage() {
       </main>
     </div>
   );
-} 
+}
