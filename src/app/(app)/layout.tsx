@@ -1,4 +1,5 @@
 import { ModeToggle } from "~/components/ui/mode-toggle";
+import { UserButton } from "@clerk/nextjs";
 import { Separator } from "~/components/ui/separator";
 import {
   SidebarInset,
@@ -13,8 +14,8 @@ export default function AppLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <SidebarProvider>
-      <AppSidebar className="h-full" />
-      <SidebarInset>
+      <AppSidebar className="h-screen overflow-hidden" />
+      <SidebarInset className="flex h-screen flex-col overflow-hidden">
         <header className="flex h-16 shrink-0 items-center gap-2">
           <div className="flex items-center gap-2 px-4">
             <SidebarTrigger className="-ml-1" />
@@ -24,8 +25,26 @@ export default function AppLayout({
             />
             <ModeToggle className="bg-accent" />
           </div>
+          <div className="ml-auto flex items-center px-4">
+            <UserButton
+              appearance={{
+                layout: {
+                  socialButtonsPlacement: "bottom",
+                  socialButtonsVariant: "iconButton",
+                  termsPageUrl: "https://clerk.com/terms",
+                },
+                elements: {
+                  avatarBox: "h-8 w-8 rounded-lg",
+                  userButtonBox: "flex w-full items-center gap-2",
+                  formButtonPrimary: "bg-sidebar-accent text-sidebar-accent-foreground",
+                },
+              }}
+            />
+          </div>
         </header>
-        {children}
+        <div className="flex-1 overflow-auto">
+          {children}
+        </div>
         <Toaster />
       </SidebarInset>
     </SidebarProvider>

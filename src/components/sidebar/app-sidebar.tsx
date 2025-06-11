@@ -18,7 +18,6 @@ import Logo from "~/components/ui/logo";
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
@@ -28,7 +27,6 @@ import { dxdb } from "~/server/localdb/dexie";
 import { NavDecks } from "./nav-decks";
 import { NavMain } from "./nav-main";
 import { NavSecondary } from "./nav-secondary";
-import { NavUser } from "./nav-user";
 
 // Static sections (top & bottom)
 const NAV_MAIN: NavItem[] = [
@@ -140,9 +138,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavDecks decks={updatedData.decks} />
         <NavSecondary items={updatedData.navSecondary} className="mt-auto" />
       </SidebarContent>
-      <SidebarFooter>
-        <NavUser />
-      </SidebarFooter>
     </Sidebar>
   );
 }

@@ -15,7 +15,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <ClerkProvider>
+    <ClerkProvider afterSignOutUrl="/">
       <html lang="en" className="font-sans" suppressHydrationWarning>
         <body>
           <TRPCReactProvider>
