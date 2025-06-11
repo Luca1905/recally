@@ -1,5 +1,5 @@
-import { ModeToggle } from "~/components/ui/mode-toggle";
 import { UserButton } from "@clerk/nextjs";
+import { ModeToggle } from "~/components/ui/mode-toggle";
 import { Separator } from "~/components/ui/separator";
 import {
   SidebarInset,
@@ -36,15 +36,14 @@ export default function AppLayout({
                 elements: {
                   avatarBox: "h-8 w-8 rounded-lg",
                   userButtonBox: "flex w-full items-center gap-2",
-                  formButtonPrimary: "bg-sidebar-accent text-sidebar-accent-foreground",
+                  formButtonPrimary:
+                    "bg-sidebar-accent text-sidebar-accent-foreground",
                 },
               }}
             />
           </div>
         </header>
-        <div className="flex-1 overflow-auto">
-          {children}
-        </div>
+        <div className="flex-1 overflow-auto">{children}</div>
         <Toaster />
       </SidebarInset>
     </SidebarProvider>

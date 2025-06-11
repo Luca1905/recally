@@ -7,8 +7,7 @@ export async function seed() {
   const deckId = await dxdb.deck_table.add({
     id: uuid(),
     name: "Heredity",
-    color:
-      "linear-gradient(to top left,#ff75c3,#ffa647,#ffe83f,#9fff5b,#70e2ff,#cd93ff)",
+    color: "#ff75c3",
     createdAt: now,
     lastModified: now,
     cardCount: 3,

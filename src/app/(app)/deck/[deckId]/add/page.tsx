@@ -10,6 +10,7 @@ import { Button } from "~/components/ui/button";
 import { Label } from "~/components/ui/label";
 import { Textarea } from "~/components/ui/textarea";
 import { dxdb } from "~/server/localdb/dexie";
+import { api } from "~/trpc/react";
 
 export default function CardAddPage() {
   const { deckId } = useParams<{ deckId: string }>();
@@ -17,6 +18,7 @@ export default function CardAddPage() {
   const [front, setFront] = useState("");
   const [back, setBack] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const cardSync = api.card.sync.useMutation();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -42,8 +44,8 @@ export default function CardAddPage() {
       };
 
       await dxdb.card_table.add(newCard);
+      cardSync.mutate([newCard]);
 
-      // increment deck card count
       const deck = await dxdb.deck_table.get(deckId as string);
       if (deck) {
         await dxdb.deck_table.update(deckId as string, {

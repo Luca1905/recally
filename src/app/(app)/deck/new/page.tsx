@@ -11,9 +11,11 @@ import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
 import type { Deck as LocalDeck } from "~/server/localdb/dexie";
 import { dxdb } from "~/server/localdb/dexie";
+import { api } from "~/trpc/react";
 
 export default function CreateDeckPage() {
   const router = useRouter();
+  const deckSync = api.deck.sync.useMutation();
   const [deckName, setDeckName] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -40,6 +42,7 @@ export default function CreateDeckPage() {
         color: "#ffffff",
       };
       await dxdb.deck_table.add(newDeck);
+      deckSync.mutate([newDeck]);
 
       toast.success(`Deck "${deckName}" created successfully`);
       router.push(`/deck/${newDeck.id}`);

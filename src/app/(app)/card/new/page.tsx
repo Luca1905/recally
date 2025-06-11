@@ -18,9 +18,11 @@ import {
 } from "~/components/ui/select";
 import { Textarea } from "~/components/ui/textarea";
 import { dxdb } from "~/server/localdb/dexie";
+import { api } from "~/trpc/react";
 
 export default function GlobalCardAddPage() {
   const router = useRouter();
+  const cardSync = api.card.sync.useMutation();
 
   const decks = useLiveQuery(() => dxdb.deck_table.toArray());
 
@@ -45,7 +47,7 @@ export default function GlobalCardAddPage() {
 
     try {
       const now = moment().valueOf();
-      await dxdb.card_table.add({
+      const newCard = {
         id: uuid(),
         deckId: selectedDeckId,
         front,
@@ -53,8 +55,10 @@ export default function GlobalCardAddPage() {
         box: 0,
         createdAt: now,
         updatedAt: now,
-        type: "new",
-      });
+        type: "new" as const,
+      };
+
+      await dxdb.card_table.add(newCard);
 
       // update deck stats
       const deck = await dxdb.deck_table.get(selectedDeckId);
@@ -64,6 +68,8 @@ export default function GlobalCardAddPage() {
           lastModified: now,
         });
       }
+
+      cardSync.mutate([newCard]);
 
       toast.success("Card added successfully");
       router.push(`/deck/${selectedDeckId}`);

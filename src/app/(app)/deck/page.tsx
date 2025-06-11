@@ -10,10 +10,12 @@ import DecksFilterBar from "~/components/deck/decks-filter-bar";
 import DecksHeader from "~/components/deck/decks-header";
 import DecksTagChips from "~/components/deck/decks-tag-chips";
 import { dxdb } from "~/server/localdb/dexie";
+import { api } from "~/trpc/react";
 
 export default function Page() {
   const { isSignedIn, user, isLoaded } = useUser();
   const decks = useLiveQuery(() => dxdb.deck_table.toArray());
+  const deckSync = api.deck.sync.useMutation();
   const [searchQuery, setSearchQuery] = useState("");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [sortBy, setSortBy] = useState<"name" | "lastModified" | "cardCount">(
@@ -122,6 +124,7 @@ export default function Page() {
         onOpenChangeAction={setCreateDeckOpen}
         createDeckAction={async (newDeck) => {
           await dxdb.deck_table.add(newDeck);
+          deckSync.mutate([newDeck]);
           setCreateDeckOpen(false);
         }}
       />
