@@ -119,7 +119,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton className="bg-sidebar-accent" size="lg" asChild>
-              <Link href="#">
+              <Link href="/dashboard">
                 <div className="m-auto flex items-center justify-center space-x-2">
                   <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-accent">
                     <Logo />
