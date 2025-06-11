@@ -1,8 +1,6 @@
 "use client";
 
-import { RefreshCcw } from "lucide-react";
 import { useState } from "react";
-import { Button } from "~/components/ui/button";
 import { dxdb } from "~/server/localdb/dexie";
 import { api } from "~/trpc/react";
 
@@ -11,16 +9,41 @@ type SyncState = "idle" | "syncing" | "success" | "error";
 export default function SyncButton() {
   const [state, setState] = useState<SyncState>("idle");
 
-  const getColor = () => {
+  const getColors = () => {
     switch (state) {
       case "syncing":
-        return "bg-amber-500 text-white hover:bg-amber-600";
+        return {
+          ping: "bg-amber-400",
+          dot: "bg-amber-500",
+        };
       case "success":
-        return "bg-emerald-600 text-white hover:bg-emerald-700";
+        return {
+          ping: "bg-emerald-400",
+          dot: "bg-emerald-500",
+        };
       case "error":
-        return "bg-rose-600 text-white hover:bg-rose-700";
+        return {
+          ping: "bg-rose-400",
+          dot: "bg-rose-500",
+        };
       default:
-        return "bg-muted text-foreground hover:bg-muted/80";
+        return {
+          ping: "bg-emerald-400",
+          dot: "bg-emerald-500",
+        };
+    }
+  };
+
+  const getStatusText = () => {
+    switch (state) {
+      case "syncing":
+        return "Syncing...";
+      case "success":
+        return "Sync complete";
+      case "error":
+        return "Sync failed";
+      default: // idle
+        return "Synced";
     }
   };
 
@@ -47,16 +70,26 @@ export default function SyncButton() {
     }
   };
 
+  const colors = getColors();
+
   return (
-    <Button
-      onClick={sync}
-      className={`gap-1 ${getColor()}`}
-      size="sm"
-      variant="secondary"
-      title="Sync with cloud"
-    >
-      <RefreshCcw className={`${state === "syncing" ? "animate-spin" : ""}`} />
-      <span className="sr-only sm:not-sr-only">Sync</span>
-    </Button>
+    <div className="flex h-8 items-center gap-2">
+      <button
+        type="button"
+        onClick={sync}
+        className="relative flex h-8 w-8 cursor-pointer items-center justify-center"
+        title="Sync with cloud"
+      >
+        <span
+          className={`absolute inline-flex h-full w-full animate-ping rounded-full ${colors.ping} opacity-75`}
+        />
+        <span
+          className={`relative inline-flex h-3 w-3 rounded-full ${colors.dot}`}
+        />
+      </button>
+      <span className="text-muted-foreground text-sm leading-none">
+        {getStatusText()}
+      </span>
+    </div>
   );
 }

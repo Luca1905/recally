@@ -1,4 +1,5 @@
 import { UserButton } from "@clerk/nextjs";
+import SyncButton from "~/components/sync-button";
 import { ModeToggle } from "~/components/ui/mode-toggle";
 import { Separator } from "~/components/ui/separator";
 import {
@@ -25,22 +26,9 @@ export default function AppLayout({
             />
             <ModeToggle className="bg-accent" />
           </div>
-          <div className="ml-auto flex items-center px-4">
-            <UserButton
-              appearance={{
-                layout: {
-                  socialButtonsPlacement: "bottom",
-                  socialButtonsVariant: "iconButton",
-                  termsPageUrl: "https://clerk.com/terms",
-                },
-                elements: {
-                  avatarBox: "h-8 w-8 rounded-lg",
-                  userButtonBox: "flex w-full items-center gap-2",
-                  formButtonPrimary:
-                    "bg-sidebar-accent text-sidebar-accent-foreground",
-                },
-              }}
-            />
+          <div className="ml-auto flex items-center gap-3 px-4">
+            <SyncButton />
+            <UserButton />
           </div>
         </header>
         <div className="flex-1 overflow-auto">{children}</div>
