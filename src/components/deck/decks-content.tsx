@@ -2,7 +2,7 @@ import { Plus } from "lucide-react";
 import { DeckGrid } from "~/components/deck/deck-grid";
 import { DeckList } from "~/components/deck/deck-list";
 import { Button } from "~/components/ui/button";
-import type { Deck as LocalDeck } from "~/server/localdb/dexie";
+import type { Deck as LocalDeck } from "~/localdb/dexie";
 
 export default function DecksContent({
   decks,

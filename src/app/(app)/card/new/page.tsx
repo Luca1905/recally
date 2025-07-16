@@ -17,7 +17,7 @@ import {
   SelectValue,
 } from "~/components/ui/select";
 import { Textarea } from "~/components/ui/textarea";
-import { dxdb } from "~/server/localdb/dexie";
+import { dxdb } from "~/localdb/dexie";
 import { api } from "~/trpc/react";
 
 export default function GlobalCardAddPage() {

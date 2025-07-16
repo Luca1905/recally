@@ -23,7 +23,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "~/components/ui/sidebar";
-import { dxdb } from "~/server/localdb/dexie";
+import { dxdb } from "~/localdb/dexie";
 import { NavDecks } from "./nav-decks";
 import { NavMain } from "./nav-main";
 import { NavSecondary } from "./nav-secondary";

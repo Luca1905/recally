@@ -15,7 +15,7 @@ import {
   TableHeader,
   TableRow,
 } from "~/components/ui/table";
-import { dxdb } from "~/server/localdb/dexie";
+import { dxdb } from "~/localdb/dexie";
 
 export default function DeckOverviewPage() {
   const { deckId } = useParams<{ deckId: string }>();

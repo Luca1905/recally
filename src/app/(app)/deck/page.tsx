@@ -9,7 +9,7 @@ import DecksContent from "~/components/deck/decks-content";
 import DecksFilterBar from "~/components/deck/decks-filter-bar";
 import DecksHeader from "~/components/deck/decks-header";
 import DecksTagChips from "~/components/deck/decks-tag-chips";
-import { dxdb } from "~/server/localdb/dexie";
+import { dxdb } from "~/localdb/dexie";
 import { api } from "~/trpc/react";
 
 export default function Page() {

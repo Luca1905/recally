@@ -9,7 +9,7 @@ import { toast } from "sonner";
 import { Button } from "~/components/ui/button";
 import { Label } from "~/components/ui/label";
 import { Textarea } from "~/components/ui/textarea";
-import { dxdb } from "~/server/localdb/dexie";
+import { dxdb } from "~/localdb/dexie";
 
 export default function CardEditPage() {
   const params = useParams<{ deckId: string; cardId: string }>();

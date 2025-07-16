@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { dxdb } from "~/server/localdb/dexie";
+import { dxdb } from "~/localdb/dexie";
 import { api } from "~/trpc/react";
 
 type SyncState = "idle" | "syncing" | "success" | "error";

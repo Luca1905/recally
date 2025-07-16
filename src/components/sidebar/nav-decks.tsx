@@ -41,7 +41,7 @@ import {
   SidebarMenuSubItem,
   useSidebar,
 } from "~/components/ui/sidebar";
-import { dxdb } from "~/server/localdb/dexie";
+import { dxdb } from "~/localdb/dexie";
 import type { NavItem } from "./app-sidebar";
 
 export function NavDecks({

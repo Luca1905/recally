@@ -8,7 +8,7 @@ import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
 import { Progress } from "~/components/ui/progress";
 import { Textarea } from "~/components/ui/textarea";
-import { dxdb } from "~/server/localdb/dexie";
+import { dxdb } from "~/localdb/dexie";
 
 export default function StudyPage({ deckId }: { deckId: string }) {
   const router = useRouter();

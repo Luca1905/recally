@@ -9,8 +9,8 @@ import { v4 as uuid } from "uuid";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
-import type { Deck as LocalDeck } from "~/server/localdb/dexie";
-import { dxdb } from "~/server/localdb/dexie";
+import type { Deck as LocalDeck } from "~/localdb/dexie";
+import { dxdb } from "~/localdb/dexie";
 import { api } from "~/trpc/react";
 
 export default function CreateDeckPage() {

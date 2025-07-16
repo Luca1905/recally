@@ -19,7 +19,7 @@ import {
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
 import { formatUNIX } from "~/lib/utils";
-import type { Deck as LocalDeck } from "~/server/localdb/dexie";
+import type { Deck as LocalDeck } from "~/localdb/dexie";
 
 interface DeckGridProps {
   decks: LocalDeck[];

@@ -9,7 +9,7 @@ import { v4 as uuid } from "uuid";
 import { Button } from "~/components/ui/button";
 import { Label } from "~/components/ui/label";
 import { Textarea } from "~/components/ui/textarea";
-import { dxdb } from "~/server/localdb/dexie";
+import { dxdb } from "~/localdb/dexie";
 import { api } from "~/trpc/react";
 
 export default function CardAddPage() {
