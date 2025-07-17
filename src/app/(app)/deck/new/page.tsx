@@ -49,7 +49,7 @@ export default function CreateDeckPage() {
       await dxdb.activity_table.add({
         id: uuid(),
         timestamp: now,
-        message: `Created new deck: ${newDeck.name}`
+        message: `Created new deck: ${newDeck.name}`,
       });
 
       toast.success(`Deck "${deckName}" created successfully`);

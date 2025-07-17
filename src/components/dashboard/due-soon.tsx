@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { Button } from "~/components/ui/button";
 import {
   Card,
@@ -136,12 +137,14 @@ export default function DueSoon({
       </Card>
 
       <div className="text-center">
-        <Button
-          variant="outline"
-          className="w-full border-border text-muted-foreground"
-        >
-          View All Due Cards
-        </Button>
+        <Link href="/deck">
+          <Button
+            variant="outline"
+            className="w-full border-border text-muted-foreground"
+          >
+            View All Due Cards
+          </Button>
+        </Link>
       </div>
     </div>
   );

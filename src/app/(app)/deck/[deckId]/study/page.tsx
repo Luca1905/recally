@@ -2,8 +2,8 @@
 
 import { useParams } from "next/navigation";
 import posthog from "posthog-js";
-import StudyPage from "./study-deck";
 import { updateStreak } from "~/localdb/streak";
+import StudyPage from "./study-deck";
 
 export default function DeckStudyPage() {
   const { deckId } = useParams<{ deckId: string }>();

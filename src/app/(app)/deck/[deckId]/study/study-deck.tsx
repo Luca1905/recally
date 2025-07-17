@@ -2,13 +2,15 @@
 
 import { useLiveQuery } from "dexie-react-hooks";
 import { ArrowLeft, ArrowRight, MoreHorizontal, X } from "lucide-react";
+import moment from "moment";
 import { useRouter } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { v4 as uuid } from "uuid";
 import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
 import { Progress } from "~/components/ui/progress";
 import { Textarea } from "~/components/ui/textarea";
-import { dxdb } from "~/localdb/dexie";
+import { type Session, dxdb } from "~/localdb/dexie";
 
 export default function StudyPage({ deckId }: { deckId: string }) {
   const router = useRouter();
@@ -17,6 +19,8 @@ export default function StudyPage({ deckId }: { deckId: string }) {
   const [userAnswer, setUserAnswer] = useState("");
   const [showActualAnswer, setShowActualAnswer] = useState<boolean>(false);
   const [isFinished, setIsFinished] = useState<boolean>(false);
+
+  const startTimeRef = useRef<number>(moment().valueOf());
 
   const questions = useLiveQuery(
     () => dxdb.card_table.where({ deckId: deckId }).toArray(),
@@ -114,7 +118,23 @@ export default function StudyPage({ deckId }: { deckId: string }) {
 
   const remaining = isFinished ? 0 : totalQuestions - currentQuestionIndex;
 
-  const handleExitSession = () => {
+  const recordSession = async () => {
+    const durationMs = Date.now() - startTimeRef.current;
+    const session: Session = {
+      id: uuid(),
+      durationMs,
+      createdAt: moment().valueOf(),
+    };
+    try {
+      await dxdb.session_table.add(session);
+      console.log("Saved session", session);
+    } catch (err) {
+      console.error("Failed to save session", err);
+    }
+  };
+
+  const handleExitSession = async () => {
+    await recordSession();
     router.push("/decks");
     if (typeof window !== "undefined") window.history.back();
     console.log("Exit study session");
@@ -129,6 +149,7 @@ export default function StudyPage({ deckId }: { deckId: string }) {
         setUserAnswer("");
         setShowActualAnswer(false);
       } else {
+        recordSession();
         setIsFinished(true);
       }
     }

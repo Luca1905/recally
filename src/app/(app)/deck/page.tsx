@@ -2,7 +2,9 @@
 
 import { useUser } from "@clerk/nextjs";
 import { useLiveQuery } from "dexie-react-hooks";
+import moment from "moment";
 import { useState } from "react";
+import { v4 as uuid } from "uuid";
 import { CreateDeckDialog } from "~/components/deck/create-deck-dialog";
 import DecksContent from "~/components/deck/decks-content";
 import DecksFilterBar from "~/components/deck/decks-filter-bar";
@@ -10,8 +12,6 @@ import DecksHeader from "~/components/deck/decks-header";
 import DecksTagChips from "~/components/deck/decks-tag-chips";
 import { dxdb } from "~/localdb/dexie";
 import { api } from "~/trpc/react";
-import { v4 as uuid } from "uuid";
-import moment from "moment";
 
 export default function Page() {
   const { isSignedIn, user, isLoaded } = useUser();
@@ -129,7 +129,7 @@ export default function Page() {
           await dxdb.activity_table.add({
             id: uuid(),
             timestamp: moment().valueOf(),
-            message: `Created new deck: ${newDeck.name}`
+            message: `Created new deck: ${newDeck.name}`,
           });
 
           setCreateDeckOpen(false);

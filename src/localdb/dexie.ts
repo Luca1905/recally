@@ -55,7 +55,7 @@ export class RecallyDB extends Dexie {
       deck_table: "&id, createdAt",
       card_table: "&id, deckId, createdAt, [type+nextReviewedAt]",
       session_table: "&id, createdAt",
-      activity_table: "&id, createdAt",
+      activity_table: "&id, timestamp",
     });
   }
 

@@ -1,11 +1,12 @@
 "use client";
 
 import { useLiveQuery } from "dexie-react-hooks";
+import moment from "moment";
 import { formatDuration } from "~/lib/utils";
 import { dxdb } from "~/localdb/dexie";
 
 export function useStats() {
-  const now = Date.now();
+  const now = moment().valueOf();
   const sevenDaysAgo = now - 7 * 24 * 60 * 60 * 1000;
 
   // 1) total counts
@@ -47,14 +48,13 @@ export function useStats() {
     ) ?? 0;
 
   // 4) total study time (ms) via streaming .each()
-  const totalStudyTimeMs =
-    useLiveQuery<number>(async () => {
-      let sum = 0;
-      await dxdb.session_table.each((s) => {
-        sum += s.durationMs;
-      });
-      return sum;
-    }, []) ?? 0;
+  const sessions = useLiveQuery(() => dxdb.session_table.toArray());
+  let totalStudyTimeMs = 0;
+  if (sessions) {
+    totalStudyTimeMs = sessions
+      .map((s) => s.durationMs)
+      .reduce((acc, n) => acc + n);
+  }
   const studyTime = formatDuration(totalStudyTimeMs);
 
   // 5) study time in last 7 days (ms)

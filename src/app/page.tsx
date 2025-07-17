@@ -172,14 +172,6 @@ export default function LandingPage() {
                 >
                   <Link href="#how-it-works">Learn More</Link>
                 </Button>
-
-                <Button
-                  size="lg"
-                  className="font-semibold text-base"
-                  onClick={() => resetDatabase()}
-                >
-                  RESET DXDB
-                </Button>
               </motion.div>
 
               {/* Social proof or key features */}

@@ -70,7 +70,7 @@ export default function GlobalCardAddPage() {
         await dxdb.activity_table.add({
           id: uuid(),
           timestamp: now,
-          message: `Created 1 new card in ${deck.name}`
+          message: `Created 1 new card in ${deck.name}`,
         });
       }
 
