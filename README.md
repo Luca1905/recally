@@ -45,16 +45,9 @@ Recally is a modern flashcard learning platform built with Next.js, designed to 
    ```
 
 3. Set up environment variables:
-   Create a `.env` file in the root directory with the following variables:
-   ```
-   # Database
-   DATABASE_URL="postgresql://user:password@localhost:5432/recally"
-   
-   # NextAuth
-   NEXTAUTH_SECRET="your-secret-key"
-   NEXTAUTH_URL="http://localhost:3000"
-   
-   # Other environment variables as needed
+   Create a `.env` file in the root directory:
+   ```bash
+   cp .env.example .env
    ```
 
 4. Run database migrations:
