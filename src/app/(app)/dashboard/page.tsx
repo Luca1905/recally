@@ -40,7 +40,7 @@ export default function Page() {
           <Tooltip>
             <TooltipTrigger asChild>
               <Button className="bg-primary hover:bg-primary/90">
-                <Link href="/app" className="flex items-center">
+                <Link href="/deck/new" className="flex items-center">
                   <PlusIcon className="mr-2 h-4 w-4" />
                   New Deck
                 </Link>

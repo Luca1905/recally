@@ -22,8 +22,8 @@ export interface DueDecksData {
  * - week      : 2-7 days from now (inclusive)
  */
 export function useDueDecks(): DueDecksData {
-  return useLiveQuery<DueDecksData>(
-    async () => {
+  return (
+    useLiveQuery<DueDecksData>(async () => {
       const todayStart = new Date();
       todayStart.setHours(0, 0, 0, 0);
 
@@ -87,10 +87,10 @@ export function useDueDecks(): DueDecksData {
         tomorrow: aggregate(cardsTomorrow),
         week: aggregate(cardsWeek),
       };
-    },
-  ) ?? {
-    today: [],
-    tomorrow: [],
-    week: [],
-  };
+    }) ?? {
+      today: [],
+      tomorrow: [],
+      week: [],
+    }
+  );
 }

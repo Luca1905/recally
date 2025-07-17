@@ -30,6 +30,8 @@ export default function CreateDeckPage() {
     setIsSubmitting(true);
 
     try {
+      const now = moment().valueOf();
+
       const newDeck: LocalDeck = {
         id: uuid(),
         name: deckName,
@@ -43,6 +45,12 @@ export default function CreateDeckPage() {
       };
       await dxdb.deck_table.add(newDeck);
       deckSync.mutate([newDeck]);
+
+      await dxdb.activity_table.add({
+        id: uuid(),
+        timestamp: now,
+        message: `Created new deck: ${newDeck.name}`
+      });
 
       toast.success(`Deck "${deckName}" created successfully`);
       router.push(`/deck/${newDeck.id}`);

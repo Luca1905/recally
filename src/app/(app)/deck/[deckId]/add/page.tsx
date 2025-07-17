@@ -32,6 +32,7 @@ export default function CardAddPage() {
 
     try {
       const now = moment().valueOf();
+
       const newCard = {
         id: uuid(),
         deckId: deckId as string,
@@ -51,6 +52,12 @@ export default function CardAddPage() {
         await dxdb.deck_table.update(deckId as string, {
           cardCount: (deck.cardCount ?? 0) + 1,
           lastModified: now,
+        });
+
+        await dxdb.activity_table.add({
+          id: uuid(),
+          timestamp: now,
+          message: `Created 1 new card in ${deck.name}`
         });
       }
 

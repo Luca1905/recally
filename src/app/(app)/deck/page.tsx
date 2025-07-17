@@ -1,7 +1,6 @@
 "use client";
 
 import { useUser } from "@clerk/nextjs";
-import { auth, currentUser } from "@clerk/nextjs/server";
 import { useLiveQuery } from "dexie-react-hooks";
 import { useState } from "react";
 import { CreateDeckDialog } from "~/components/deck/create-deck-dialog";
@@ -11,6 +10,8 @@ import DecksHeader from "~/components/deck/decks-header";
 import DecksTagChips from "~/components/deck/decks-tag-chips";
 import { dxdb } from "~/localdb/dexie";
 import { api } from "~/trpc/react";
+import { v4 as uuid } from "uuid";
+import moment from "moment";
 
 export default function Page() {
   const { isSignedIn, user, isLoaded } = useUser();
@@ -125,6 +126,12 @@ export default function Page() {
         createDeckAction={async (newDeck) => {
           await dxdb.deck_table.add(newDeck);
           deckSync.mutate([newDeck]);
+          await dxdb.activity_table.add({
+            id: uuid(),
+            timestamp: moment().valueOf(),
+            message: `Created new deck: ${newDeck.name}`
+          });
+
           setCreateDeckOpen(false);
         }}
       />

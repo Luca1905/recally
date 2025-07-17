@@ -16,4 +16,3 @@ export function formatDuration(ms: number): string {
   const m = totalMins % 60;
   return h > 0 ? `${h}h ${m}m` : `${m}m`;
 }
-

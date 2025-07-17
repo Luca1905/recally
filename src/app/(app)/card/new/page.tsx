@@ -67,6 +67,11 @@ export default function GlobalCardAddPage() {
           cardCount: (deck.cardCount ?? 0) + 1,
           lastModified: now,
         });
+        await dxdb.activity_table.add({
+          id: uuid(),
+          timestamp: now,
+          message: `Created 1 new card in ${deck.name}`
+        });
       }
 
       cardSync.mutate([newCard]);

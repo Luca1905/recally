@@ -57,5 +57,5 @@ export async function seed() {
     id: uuid(),
     message: "Heredity table created",
     timestamp: now,
-  })
+  });
 }

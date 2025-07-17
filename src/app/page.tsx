@@ -17,7 +17,8 @@ export default function LandingPage() {
     }
 
     const centerX = windowSize.width / 2;
-    const centerY = windowSize.height / 2; const deltaX = (x - centerX) / strength;
+    const centerY = windowSize.height / 2;
+    const deltaX = (x - centerX) / strength;
     const deltaY = (y - centerY) / strength;
 
     return { x: deltaX, y: deltaY };

@@ -1,7 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { getStreakData as _getStreakData, type StreakData } from "~/localdb/streak";
+import { useEffect, useState } from "react";
+import {
+  type StreakData,
+  getStreakData as _getStreakData,
+} from "~/localdb/streak";
 
 export function useStreakData(): StreakData {
   const [streak, setStreak] = useState<StreakData>({
