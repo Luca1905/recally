@@ -1,5 +1,15 @@
 {
   "buildCommand": "pnpm run build",
   "devCommand": "pnpm run dev",
-  "installCommand": "pnpm install"
+  "installCommand": "pnpm install",
+  "rewrites": [
+    {
+      "source": "/relay-kM47/static/(.*)",
+      "destination": "https://eu-assets.i.posthog.com/static/$1"
+    },
+    {
+      "source": "/relay-kM47/(.*)",
+      "destination": "https://eu.i.posthog.com/$1"
+    }
+  ]
 }

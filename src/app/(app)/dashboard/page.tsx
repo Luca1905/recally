@@ -10,17 +10,23 @@ import {
   TooltipTrigger,
 } from "~/components/ui/tooltip";
 
+import { useUser } from "@clerk/nextjs";
+import { useLiveQuery } from "dexie-react-hooks";
+import posthog from "posthog-js";
 import DueSoon from "~/components/dashboard/due-soon";
 import RecentActivity from "~/components/dashboard/recent-activity";
 import StatsCards from "~/components/dashboard/stats-card";
 import StudyStreak from "~/components/dashboard/study-streak";
-import { useStats } from "~/hooks/use-stats";
 import { useDueDecks } from "~/hooks/use-due-cards";
-import { dxdb } from "~/localdb/dexie";
-import { useLiveQuery } from "dexie-react-hooks";
+import { useStats } from "~/hooks/use-stats";
 import { useStreakData } from "~/hooks/use-streak";
+import { dxdb } from "~/localdb/dexie";
 
 export default function Page() {
+  const { user } = useUser();
+  if (user) {
+    posthog.identify(user.id, user);
+  }
   const stats = useStats();
   const activities = useLiveQuery(() => dxdb.activity_table.toArray()) ?? [];
   const dueCards = useDueDecks();

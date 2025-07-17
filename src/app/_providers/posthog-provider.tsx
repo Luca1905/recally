@@ -16,8 +16,9 @@ const SuspendedPostHogPageView = dynamicLoader(
 export function PostHogProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     posthog.init(env.NEXT_PUBLIC_POSTHOG_KEY, {
-      api_host: "/ingest",
+      api_host: "/relay-kM47/",
       ui_host: "https://eu.posthog.com",
+      defaults: "2025-05-24",
       capture_pageview: false, // Disable automatic pageview capture, as we capture manually
     });
   }, []);
