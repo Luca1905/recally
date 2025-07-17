@@ -48,4 +48,14 @@ export async function seed() {
       type: "due",
     },
   ]);
+  await dxdb.session_table.add({
+    id: uuid(),
+    durationMs: 1000,
+    createdAt: now - 1000,
+  });
+  await dxdb.activity_table.add({
+    id: uuid(),
+    message: "Heredity table created",
+    timestamp: now,
+  })
 }

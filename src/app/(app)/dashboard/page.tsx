@@ -1,3 +1,5 @@
+"use client";
+
 import { PlusIcon } from "lucide-react";
 import Link from "next/link";
 import { Button } from "~/components/ui/button";
@@ -12,12 +14,17 @@ import DueSoon from "~/components/dashboard/due-soon";
 import RecentActivity from "~/components/dashboard/recent-activity";
 import StatsCards from "~/components/dashboard/stats-card";
 import StudyStreak from "~/components/dashboard/study-streak";
+import { useStats } from "~/hooks/use-stats";
+import { useDueDecks } from "~/hooks/use-due-cards";
+import { dxdb } from "~/localdb/dexie";
+import { useLiveQuery } from "dexie-react-hooks";
+import { useStreakData } from "~/hooks/use-streak";
 
-export default async function Page() {
-  const stats = await getStats();
-  const streak = await getStudyStreak();
-  const activities = await getRecentActivity();
-  const dueCards = await getDueCards();
+export default function Page() {
+  const stats = useStats();
+  const activities = useLiveQuery(() => dxdb.activity_table.toArray()) ?? [];
+  const dueCards = useDueDecks();
+  const streak = useStreakData();
 
   return (
     <div className="p-8">

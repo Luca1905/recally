@@ -2,12 +2,9 @@
 
 import { Card, CardContent } from "~/components/ui/card";
 import { ScrollArea } from "~/components/ui/scroll-area";
+import type { Activity } from "~/localdb/dexie";
+import { formatUNIX } from "~/lib/utils";
 
-interface Activity {
-  id: string;
-  message: string;
-  timestamp: string;
-}
 
 export default function RecentActivity({
   data,
@@ -25,7 +22,7 @@ export default function RecentActivity({
                 <div key={act.id} className="border-primary border-l-2 pl-4">
                   <div className="font-medium text-sm">{act.message}</div>
                   <div className="text-muted-foreground text-xs">
-                    {act.timestamp}
+                    {formatUNIX(act.timestamp)}
                   </div>
                 </div>
               ))}

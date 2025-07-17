@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Button } from "~/components/ui/button";
 import Logo from "~/components/ui/logo";
 import { useMousePosition, useWindowSize } from "~/lib/hooks";
+import { resetDatabase } from "~/localdb/dexie";
 
 export default function LandingPage() {
   const windowSize = useWindowSize();
@@ -16,9 +17,7 @@ export default function LandingPage() {
     }
 
     const centerX = windowSize.width / 2;
-    const centerY = windowSize.height / 2;
-
-    const deltaX = (x - centerX) / strength;
+    const centerY = windowSize.height / 2; const deltaX = (x - centerX) / strength;
     const deltaY = (y - centerY) / strength;
 
     return { x: deltaX, y: deltaY };
@@ -171,6 +170,14 @@ export default function LandingPage() {
                   className="font-semibold text-base"
                 >
                   <Link href="#how-it-works">Learn More</Link>
+                </Button>
+
+                <Button
+                  size="lg"
+                  className="font-semibold text-base"
+                  onClick={() => resetDatabase()}
+                >
+                  RESET DXDB
                 </Button>
               </motion.div>
 

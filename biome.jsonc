@@ -26,6 +26,9 @@
       "style": {
         "noUselessElse": "warn"
       },
+      "complexity": {
+        "noForEach": "off"
+      },
       "recommended": true
     }
   }

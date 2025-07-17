@@ -14,23 +14,12 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "~/components/ui/tooltip";
-
-interface DueCard {
-  id: string;
-  title: string;
-  count: number;
-}
-
-interface DueCardsData {
-  today: DueCard[];
-  tomorrow: DueCard[];
-  week: DueCard[];
-}
+import type { DueDecksData } from "~/hooks/use-due-cards";
 
 export default function DueSoon({
   data,
 }: {
-  data: DueCardsData;
+  data: DueDecksData;
 }) {
   return (
     <div>
@@ -47,7 +36,7 @@ export default function DueSoon({
             <TabsContent value="today">
               <div className="space-y-2">
                 {data.today.map((c) => (
-                  <Card key={c.id} className="border-border bg-muted">
+                  <Card key={c.deckId} className="border-border bg-muted">
                     <CardContent className="flex items-center justify-between p-3">
                       <div>
                         <CardTitle className="font-medium text-sm">
@@ -78,7 +67,7 @@ export default function DueSoon({
             <TabsContent value="tomorrow">
               <div className="space-y-2">
                 {data.tomorrow.map((c) => (
-                  <Card key={c.id} className="border-border bg-muted">
+                  <Card key={c.deckId} className="border-border bg-muted">
                     <CardContent className="flex items-center justify-between p-3">
                       <div>
                         <CardTitle className="font-medium text-sm">
@@ -110,7 +99,7 @@ export default function DueSoon({
               {data.week.length > 0 ? (
                 <div className="space-y-2">
                   {data.week.map((c) => (
-                    <Card key={c.id} className="border-border bg-muted">
+                    <Card key={c.deckId} className="border-border bg-muted">
                       <CardContent className="flex items-center justify-between p-3">
                         <div>
                           <CardTitle className="font-medium text-sm">

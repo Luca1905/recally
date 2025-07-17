@@ -31,15 +31,31 @@ export interface Deck {
   tags: string[];
 }
 
+export interface Session {
+  id: string;
+  durationMs: number;
+  createdAt: number;
+}
+
+export interface Activity {
+  id: string;
+  message: string;
+  timestamp: number;
+}
+
 export class RecallyDB extends Dexie {
   deck_table!: Table<Deck, string>;
   card_table!: Table<Card, string>;
+  session_table!: Table<Session, string>;
+  activity_table!: Table<Activity, string>;
 
   constructor() {
     super("RecallyDB");
     this.version(1).stores({
-      deck_table: "&id",
-      card_table: "&id, deckId",
+      deck_table: "&id, createdAt",
+      card_table: "&id, deckId, createdAt, [type+nextReviewedAt]",
+      session_table: "&id, createdAt",
+      activity_table: "&id, createdAt",
     });
   }
 
