@@ -50,7 +50,7 @@ export function useStats() {
   // 4) total study time (ms) via streaming .each()
   const sessions = useLiveQuery(() => dxdb.session_table.toArray());
   let totalStudyTimeMs = 0;
-  if (sessions) {
+  if (sessions && sessions.length > 0) {
     totalStudyTimeMs = sessions
       .map((s) => s.durationMs)
       .reduce((acc, n) => acc + n);

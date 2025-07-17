@@ -1,5 +1,4 @@
 import Dexie, { type Table } from "dexie";
-import { seed } from "./seed";
 
 Dexie.debug = "dexie";
 
@@ -69,11 +68,8 @@ export class RecallyDB extends Dexie {
 
 export const dxdb = new RecallyDB();
 
-dxdb.on("populate", seed);
-
 export function resetDatabase() {
   return dxdb.transaction("rw", dxdb.deck_table, dxdb.card_table, async () => {
     await Promise.all(dxdb.tables.map((table) => table.clear()));
-    await seed();
   });
 }
